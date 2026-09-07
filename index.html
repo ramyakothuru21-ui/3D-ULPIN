@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230284c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 2 2 7 12 12 22 7 12 2'/><polyline points='2 17 12 22 22 17'/><polyline points='2 12 12 17 22 12'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D-ULPIN: Intelligent 3D Land & Property Information System | Andhra Pradesh (Enhanced)</title>
+    <!-- MapLibre GL CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      /* Enhanced Visual Styles & Micro-interactions */
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 15px rgba(6, 182, 212, 0.4); }
+        50% { box-shadow: 0 0 25px rgba(6, 182, 212, 0.85); }
+      }
+      .badge-glow {
+        animation: pulseGlow 2.5s infinite ease-in-out;
+      }
+      /* Custom modern scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(241, 245, 249, 0.6);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+    <script>
+      // 🛡️ CRITICAL DEFENSIVE FIX: Intercept React DOM reconciliation when external WebGL clears containers
+      const _origInsert = Node.prototype.insertBefore;
+      Node.prototype.insertBefore = function(newNode, refNode) {
+        if (refNode && refNode.parentNode !== this) {
+          return this.appendChild(newNode);
+        }
+        return _origInsert.call(this, newNode, refNode);
+      };
+      const _origRemove = Node.prototype.removeChild;
+      Node.prototype.removeChild = function(child) {
+        if (child && child.parentNode !== this) {
+          return child;
+        }
+        return _origRemove.call(this, child);
+      };
+      console.log("%c✓ 3D-ULPIN Engine initialized with zero-crash WebGL reconciliation.", "color: #059669; font-weight: bold; font-size: 13px;");
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-cyan-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+﻿services:
+  - type: web
+    name: 3d-ulpin
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
