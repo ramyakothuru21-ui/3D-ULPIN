@@ -1,4 +1,4 @@
-﻿name: Deploy 3D-ULPIN to GitHub Pages
+name: Deploy 3D-ULPIN to GitHub Pages
 
 on:
   push:
