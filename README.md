@@ -17,29 +17,27 @@ This repository contains the complete, production-ready source code and pre-comp
    - 100 3D Extruded Buildings
    - 986 Vertically Stacked Property Titles with 3D ULPINs
 4. **Dual Running Mode**:
-   - Supports both standard Node.js development (
-pm run dev) and lightweight standalone Python hosting (py server.py 5173).
+   - Supports both standard Node.js development (`npm run dev`) and lightweight standalone Python hosting (`py server.py 5173`).
 
 ---
 
 ## 🚀 How to Run Locally
 
 ### Option A: Using Python (No Node.js installation required)
-`ash
+```bash
 py server.py 5173
-`
+```
 Then visit **http://localhost:5173** in your web browser.
 
 ### Option B: Using Node / Vite
-`ash
+```bash
 npm install
 npm run dev
-`
+```
 Visit **http://localhost:5173** in your browser.
 
 ---
 
 ## 🌐 Deploying to Render
-This repository includes a pre-configured 
-ender.yaml.
+This repository includes a pre-configured `render.yaml`.
 Connecting this repository to [Render](https://render.com) will automatically build and publish the live web service at your custom domain or https://threed-ulpin.onrender.com.
