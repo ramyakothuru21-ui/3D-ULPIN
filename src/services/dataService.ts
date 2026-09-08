@@ -49,19 +49,29 @@ export async function loadDatasets(): Promise<LoadedDataset> {
     return cachedData;
   }
 
+  const base = import.meta.env.BASE_URL || './';
+  const cleanBase = base.endsWith('/') ? base : `${base}/`;
+
+  const fetchCsv = async (filename: string) => {
+    const primaryUrl = `${cleanBase}data/${filename}`;
+    try {
+      const res = await fetch(primaryUrl);
+      if (res.ok) return await res.text();
+    } catch (_) {}
+    
+    // Fallback to absolute root /data/
+    try {
+      const fallbackRes = await fetch(`/data/${filename}`);
+      if (fallbackRes.ok) return await fallbackRes.text();
+    } catch (_) {}
+
+    throw new Error(`Failed to load ${filename}`);
+  };
+
   const [parcelsRes, buildingsRes, propertiesRes] = await Promise.all([
-    fetch('/data/land_parcels.csv').then(r => {
-      if (!r.ok) throw new Error(`Failed to load land_parcels.csv: ${r.statusText}`);
-      return r.text();
-    }),
-    fetch('/data/buildings.csv').then(r => {
-      if (!r.ok) throw new Error(`Failed to load buildings.csv: ${r.statusText}`);
-      return r.text();
-    }),
-    fetch('/data/vertical_properties.csv').then(r => {
-      if (!r.ok) throw new Error(`Failed to load vertical_properties.csv: ${r.statusText}`);
-      return r.text();
-    })
+    fetchCsv('land_parcels.csv'),
+    fetchCsv('buildings.csv'),
+    fetchCsv('vertical_properties.csv')
   ]);
 
   const parsedParcels = Papa.parse<RawParcel>(parcelsRes.trim(), { header: true, skipEmptyLines: true });
