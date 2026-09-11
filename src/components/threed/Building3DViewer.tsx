@@ -654,16 +654,18 @@ export const Building3DViewer: React.FC<Building3DViewerProps> = ({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-extrabold text-slate-900 text-base">Realistic 3D Architectural Digital Twin</h3>
+              <h3 className="font-extrabold text-slate-900 text-base">
+                {building.name || 'Realistic 3D Architectural Digital Twin'}
+              </h3>
               <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">
-                Building {building.Building_ID}
+                {building.Building_ID}
               </span>
               <span className="text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                Parcel {parcel.Parcel_ID}
+                Duvvada, Visakhapatnam
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
-              {building.Building_Type} • {building.Floors} Distinct Floors ({building.Height_m}m) • Owner: <strong className="text-slate-800">{inspectedOwner.currentOwner}</strong> ({inspectedOwner.surveyNumber})
+              {building.Building_Type} • {building.hasRealLevels ? `${building.realFloors} Floors (OSM Tag)` : `${building.Floors} Floors (Illustrative Height: ${building.Height_m}m)`} • {building.area_sq_m ? `${building.area_sq_m} m² Footprint` : ''} • Title: <strong className="text-slate-800">{inspectedOwner.currentOwner}</strong> <span className="text-[9px] px-1 bg-amber-100 text-amber-800 font-bold rounded font-mono">DEMO OWNER</span>
             </p>
           </div>
         </div>

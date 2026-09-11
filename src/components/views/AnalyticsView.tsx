@@ -185,7 +185,7 @@ export const AnalyticsView: React.FC<AnalyticsViewProps> = ({
         <div className="p-5 bg-white rounded-2xl border border-slate-200/80 shadow-xs space-y-4">
           <div>
             <h3 className="font-bold text-slate-800 text-sm">Parcel Area Distribution (sq. meters)</h3>
-            <p className="text-xs text-slate-400">Ground spatial footprint sizing in Kadapa</p>
+            <p className="text-xs text-slate-400">Ground spatial footprint sizing in Duvvada, Visakhapatnam</p>
           </div>
           <div className="space-y-3 pt-2">
             {Object.entries(areaBuckets).map(([bucket, count]) => {

@@ -1,0 +1,10 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "source": "State Cadastre Interface (Department of Land Resources / AP Meebhoomi)",
+    "dataStatus": "UNAVAILABLE_PUBLIC_SOURCE",
+    "notice": "Cadastral parcel data unavailable from public source. Andhra Pradesh Meebhoomi cadastral records are restricted to state revenue intranet/CAPTCHA portals and not published as open public GIS APIs. Architecture is prepared for official API integration.",
+    "isAvailable": false
+  },
+  "features": []
+}

@@ -4,12 +4,13 @@ export interface LandParcel {
   Longitude: number;
   Area_sq_m: number;
   Land_Type: 'Residential' | 'Commercial' | 'Mixed Use' | string;
-  // Computed GIS geometry for realistic cadastral boundaries
   polygonCoordinates?: [number, number][];
   surveyNumber?: string;
   village?: string;
   mandal?: string;
   district?: string;
+  source?: string;
+  dataStatus?: 'REAL_PUBLIC_DATA' | 'DEMO_DATA' | 'UNAVAILABLE_PUBLIC_SOURCE' | string;
 }
 
 export interface Building {
@@ -19,8 +20,22 @@ export interface Building {
   Longitude: number;
   Floors: number;
   Height_m: number;
-  Building_Type: 'Commercial' | 'Apartment' | 'Independent House' | 'Mixed Use' | string;
+  Building_Type: 'Commercial' | 'Apartment' | 'Independent House' | 'Institutional' | 'Healthcare' | 'Mixed Use' | string;
   polygonCoordinates?: [number, number][];
+  osmId?: number;
+  name?: string;
+  street?: string;
+  city?: string;
+  postcode?: string;
+  state?: string;
+  area_sq_m?: number;
+  hasRealLevels?: boolean;
+  realFloors?: number | null;
+  hasRealHeight?: boolean;
+  realHeight?: number | null;
+  source?: string;
+  dataStatus?: 'REAL_PUBLIC_DATA' | 'DEMO_DATA' | 'UNAVAILABLE_PUBLIC_SOURCE' | string;
+  heightStatus?: 'REAL_PUBLIC_DATA' | 'DERIVED_FROM_LEVELS' | 'DEMO_ILLUSTRATIVE_HEIGHT' | string;
 }
 
 export interface VerticalProperty {
@@ -32,6 +47,28 @@ export interface VerticalProperty {
   Area_sq_m: number;
   Property_Type: 'Shop' | 'Office' | 'Residential' | string;
   Prototype_3D_ULPIN: string;
+  source?: string;
+  dataStatus?: 'REAL_PUBLIC_DATA' | 'DEMO_DATA' | 'UNAVAILABLE_PUBLIC_SOURCE' | string;
+  notice?: string;
+}
+
+export interface RoadFeature {
+  id: string | number;
+  name: string;
+  type: string;
+  isRailway: boolean;
+  coordinates: [number, number][];
+  source: string;
+  dataStatus: string;
+}
+
+export interface PlaceFeature {
+  id: string | number;
+  name: string;
+  category: string;
+  coordinates: [number, number];
+  source: string;
+  dataStatus: string;
 }
 
 export interface OwnershipRecord {
@@ -64,6 +101,10 @@ export interface CadastralStats {
   totalRegisteredOwners: number;
   activeProperties: number;
   transferredProperties: number;
+  totalRoads?: number;
+  totalPlaces?: number;
+  buildingsWithRealLevels?: number;
+  namedBuildingsCount?: number;
 }
 
 export interface FilterState {
@@ -89,3 +130,4 @@ export type ActiveTab =
   | 'analytics' 
   | 'explorer' 
   | 'about';
+

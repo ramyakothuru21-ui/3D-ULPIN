@@ -41,7 +41,7 @@ export const AboutView: React.FC = () => {
           <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-cyan-200">
             <span>Jurisdiction: Andhra Pradesh, India</span>
             <span>•</span>
-            <span>Target Region: Kadapa Smart Urban Grid</span>
+            <span>Target Region: Duvvada (Visakhapatnam), Andhra Pradesh</span>
             <span>•</span>
             <span>Cadastral Standard: National Bhu-Aadhaar 3D</span>
           </div>

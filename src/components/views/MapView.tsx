@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LandParcel, Building, VerticalProperty } from '../../types';
+import { LandParcel, Building, VerticalProperty, RoadFeature, PlaceFeature } from '../../types';
 import { GisMap } from '../map/GisMap';
 import { PropertyPanel } from '../details/PropertyPanel';
 import { Building3DViewer } from '../threed/Building3DViewer';
@@ -9,6 +9,8 @@ interface MapViewProps {
   parcels: LandParcel[];
   buildings: Building[];
   properties: VerticalProperty[];
+  roads?: RoadFeature[];
+  places?: PlaceFeature[];
   selectedParcel: LandParcel | null;
   selectedBuilding: Building | null;
   selectedProperty: VerticalProperty | null;
@@ -24,6 +26,8 @@ export const MapView: React.FC<MapViewProps> = ({
   parcels,
   buildings,
   properties,
+  roads = [],
+  places = [],
   selectedParcel,
   selectedBuilding,
   selectedProperty,
@@ -49,9 +53,12 @@ export const MapView: React.FC<MapViewProps> = ({
         <GisMap
           parcels={parcels}
           buildings={buildings}
+          roads={roads}
+          places={places}
           selectedParcel={selectedParcel}
           selectedBuilding={selectedBuilding}
           selectedProperty={selectedProperty}
+          enableDemoOverlay={enableDemoOverlay}
           onSelectParcel={onSelectParcel}
           onSelectBuilding={onSelectBuilding}
           is3DMode={is3DMode}

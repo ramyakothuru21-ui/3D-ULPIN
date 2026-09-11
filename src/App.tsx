@@ -46,9 +46,9 @@ export const App: React.FC = () => {
     try {
       const loaded = await loadDatasets();
       setData(loaded);
-      // Select default notable parcel (LP014 with B014 - high density 8-floor structure)
-      const p = loaded.parcels.find(item => item.Parcel_ID === 'LP014') || loaded.parcels[0];
-      const b = loaded.buildings.find(item => item.Building_ID === 'B014') || loaded.buildings[0];
+      // Select default notable Duvvada structure (B001 - KBC Heights on Kurmannapalem Road)
+      const p = loaded.parcels.find(item => item.Parcel_ID === 'LP001') || loaded.parcels[0];
+      const b = loaded.buildings.find(item => item.Building_ID === 'B001') || loaded.buildings[0];
       if (p) setSelectedParcel(p);
       if (b) setSelectedBuilding(b);
     } catch (err: any) {
@@ -114,7 +114,7 @@ export const App: React.FC = () => {
         </div>
         <h2 className="text-xl font-bold text-slate-800">3D-ULPIN Cadastral Engine</h2>
         <p className="text-xs text-slate-500 mt-1">
-          Ingesting Andhra Pradesh land parcels, 3D building extrusions & vertical property units...
+          Ingesting Duvvada, Visakhapatnam OpenStreetMap building footprints, road networks & 3D ULPIN units...
         </p>
       </div>
     );
@@ -148,6 +148,7 @@ export const App: React.FC = () => {
         parcels={data.parcels}
         buildings={data.buildings}
         properties={data.properties}
+        places={data.places}
         enableDemoOverlay={enableDemoOverlay}
         onToggleDemoOverlay={setEnableDemoOverlay}
         onSelectEntity={(parcel, building, property) => {
@@ -190,6 +191,8 @@ export const App: React.FC = () => {
               parcels={data.parcels}
               buildings={data.buildings}
               properties={data.properties}
+              roads={data.roads}
+              places={data.places}
               selectedParcel={selectedParcel}
               selectedBuilding={selectedBuilding}
               selectedProperty={selectedProperty}

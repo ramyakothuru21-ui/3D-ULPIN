@@ -20,7 +20,9 @@ import {
   IndianRupee,
   Share2,
   Home,
-  Layout
+  Layout,
+  AlertTriangle,
+  Compass
 } from 'lucide-react';
 
 interface PropertyPanelProps {
@@ -49,26 +51,26 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
 
   if (!parcel && !building && !property) {
     return (
-      <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-white border-l border-slate-200">
+      <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-white border-l border-slate-200 select-none">
         <div className="w-16 h-16 rounded-2xl bg-brand-50 border border-brand-200 text-brand-600 flex items-center justify-center mb-4 shadow-sm">
           <Building2 className="w-8 h-8" />
         </div>
-        <h3 className="font-bold text-slate-800 text-base">Select a Cadastral Entity</h3>
+        <h3 className="font-bold text-slate-800 text-base">Select a Building or Property</h3>
         <p className="text-xs text-slate-500 mt-2 max-w-xs leading-relaxed">
-          Hover over or click on any 2D land parcel, 3D building, or vertical property unit on the GIS map to view its verified owner details and 3D interior.
+          Click any real building footprint in Duvvada on the map to inspect its verified OpenStreetMap geographic data and 3D vertical subdivision model.
         </p>
       </div>
     );
   }
 
-  // Active or derived ULPIN
+  // Active or derived Prototype 3D-ULPIN
   const activeUlpin = property
     ? property.Prototype_3D_ULPIN
     : parcel && building
-    ? `IND-AP-${parcel.Parcel_ID}-${building.Building_ID}`
+    ? `IND-AP-VSP-DVD-${parcel.Parcel_ID}-${building.Building_ID}`
     : parcel
-    ? `IND-AP-${parcel.Parcel_ID}`
-    : 'IND-AP';
+    ? `IND-AP-VSP-DVD-${parcel.Parcel_ID}`
+    : 'IND-AP-VSP-DVD';
 
   const ownership: OwnershipRecord = getOwnershipRecord(
     property ? property.Property_ID : (parcel ? parcel.Parcel_ID : 'P0000'),
@@ -76,7 +78,6 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
     enableDemoOverlay
   );
 
-  // Interior room layout if unit is active
   const interiorLayout = getUnitInteriorLayout(
     property ? property.Property_Type : 'Residential',
     property ? property.Area_sq_m : 110
@@ -91,17 +92,17 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
   return (
     <div className="h-full flex flex-col bg-white border-l border-slate-200 select-none overflow-hidden shadow-sm">
       {/* Top Header */}
-      <div className="p-4 border-b border-slate-200 bg-slate-50/80">
+      <div className="p-4 border-b border-slate-200 bg-slate-50/90">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 border border-brand-200">
-            {property ? 'Vertical Property Unit' : building ? '3D Building' : 'Land Parcel'}
+          <span className="text-[10px] font-extrabold tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 border border-cyan-200">
+            {property ? 'Vertical Property Unit' : building ? 'Real Duvvada Building' : 'Land Parcel'}
           </span>
           <div className="flex items-center gap-1.5">
             {building && (
               <button
                 onClick={onOpen3DViewer}
                 className="text-xs px-3 py-1.5 bg-gradient-to-r from-brand-600 via-cyan-600 to-teal-600 hover:from-brand-700 hover:to-teal-700 text-white font-extrabold rounded-xl shadow-md flex items-center gap-1.5 transition active:scale-95"
-                title="View every floor and interior rooms in 3D"
+                title="View floors, units and interior rooms in 3D"
               >
                 <Box className="w-4 h-4" />
                 <span>View in 3D</span>
@@ -110,11 +111,16 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
           </div>
         </div>
 
-        {/* ULPIN Display Box */}
-        <div className="mt-3 p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        {/* Prototype 3D-ULPIN Banner with Explicit Demo Badge */}
+        <div className="mt-3 p-3 bg-white rounded-xl border border-slate-200 shadow-xs">
           <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center justify-between">
-            <span>Prototype 3D-ULPIN</span>
-            <span className="text-emerald-600 font-medium">Verified Andhra Pradesh</span>
+            <span className="flex items-center gap-1">
+              <span>Prototype 3D-ULPIN</span>
+              <span className="text-[8px] font-mono px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 font-bold">
+                DEMO FORMAT
+              </span>
+            </span>
+            <span className="text-slate-400 font-normal">Bhu-Aadhaar 3D</span>
           </div>
           <div className="flex items-center justify-between gap-2 mt-1">
             <span className="font-mono text-xs font-bold text-slate-900 break-all select-all">
@@ -130,7 +136,7 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
           </div>
         </div>
 
-        {/* Tabs */}
+        {/* Navigation Tabs */}
         <div className="flex items-center gap-1 mt-3 p-1 bg-slate-200/60 rounded-lg text-xs">
           <button
             onClick={() => setActiveTab('details')}
@@ -155,9 +161,7 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
             }`}
           >
             <span>Ownership</span>
-            {enableDemoOverlay && (
-              <span className="text-[9px] px-1 rounded bg-amber-100 text-amber-800 font-mono">DEMO</span>
-            )}
+            <span className="text-[8px] px-1 rounded bg-amber-100 text-amber-800 font-mono">DEMO</span>
           </button>
           {building && (
             <button
@@ -177,114 +181,158 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
         {/* Attributes Tab */}
         {activeTab === 'details' && (
           <>
-            {/* Owner Quick Card */}
-            <div className="p-3 bg-gradient-to-br from-emerald-50/70 to-white rounded-xl border border-emerald-200 shadow-xs flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
-                  {ownership.currentOwner.charAt(0)}
+            {/* 1. Real Building Geospatial Information (Requirement 2 & 6) */}
+            {building && (
+              <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm space-y-3">
+                <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-xs">
+                      <Building2 className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="font-extrabold text-slate-900 text-xs">
+                        {building.name || building.Building_ID}
+                      </h4>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        Building ID: {building.Building_ID} {building.osmId ? `• OSM ${building.osmId}` : ''}
+                      </span>
+                    </div>
+                  </div>
+                  <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                    REAL PUBLIC DATA
+                  </span>
                 </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Registered Title Holder</span>
-                  <h4 className="font-bold text-slate-900 text-xs">{ownership.currentOwner}</h4>
+
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="p-2 bg-slate-50 rounded-lg">
+                    <span className="text-[10px] text-slate-400 block font-medium uppercase">Building Footprint</span>
+                    <span className="font-bold text-slate-800">
+                      {building.area_sq_m ? `${building.area_sq_m} m²` : 'Calculated Footprint'}
+                    </span>
+                  </div>
+
+                  <div className="p-2 bg-slate-50 rounded-lg">
+                    <span className="text-[10px] text-slate-400 block font-medium uppercase">Floors / Levels</span>
+                    <span className="font-bold text-slate-800">
+                      {building.hasRealLevels 
+                        ? `${building.realFloors} Floors (OSM Tag)` 
+                        : `${building.Floors} Floors (Demo Height)`}
+                    </span>
+                  </div>
+
+                  <div className="p-2 bg-slate-50 rounded-lg">
+                    <span className="text-[10px] text-slate-400 block font-medium uppercase">Total Height</span>
+                    <span className="font-bold text-slate-800">
+                      {building.hasRealHeight 
+                        ? `${building.realHeight} m (OSM Tag)` 
+                        : `${building.Height_m} m (Illustrative Height)`}
+                    </span>
+                  </div>
+
+                  <div className="p-2 bg-slate-50 rounded-lg">
+                    <span className="text-[10px] text-slate-400 block font-medium uppercase">Building Typology</span>
+                    <span className="font-bold text-slate-800">{building.Building_Type}</span>
+                  </div>
+                </div>
+
+                <div className="p-2 bg-slate-50 rounded-lg text-xs space-y-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Coordinates:</span>
+                    <span className="font-mono font-bold text-slate-800">
+                      {building.Latitude.toFixed(6)}° N, {building.Longitude.toFixed(6)}° E
+                    </span>
+                  </div>
+                  {building.street && (
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-slate-400">Street / Area:</span>
+                      <span className="text-slate-800 font-medium truncate max-w-[200px]">
+                        {building.street}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Jurisdiction:</span>
+                    <span className="text-slate-800 font-medium">Duvvada, Visakhapatnam, AP</span>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Data Source:</span>
+                    <span className="text-emerald-700 font-semibold">OpenStreetMap (ODbL)</span>
+                  </div>
                 </div>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-                {ownership.ownershipStatus}
-              </span>
-            </div>
+            )}
 
-            {/* 1. Vertical Property Details if selected */}
+            {/* 2. Vertical Property Unit Details if selected (Requirement 5 & 6) */}
             {property && (
-              <div className="p-3.5 bg-gradient-to-br from-brand-50/50 to-white rounded-xl border border-brand-100 shadow-sm space-y-2.5">
+              <div className="p-3.5 bg-gradient-to-br from-brand-50/40 to-white rounded-xl border border-brand-200 shadow-sm space-y-2.5">
                 <div className="flex items-center justify-between">
                   <h4 className="font-bold text-slate-800 text-xs flex items-center gap-1.5">
                     <Layers className="w-4 h-4 text-brand-600" />
-                    <span>Vertical Unit Details</span>
+                    <span>Vertical Unit Subdivision</span>
                   </h4>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-100 text-cyan-800">
-                    {property.Property_Type}
+                  <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 border border-amber-200">
+                    DEMO MODEL
                   </span>
                 </div>
+
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="p-2 bg-white rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-400 block">Unit Number</span>
+                    <span className="text-[10px] text-slate-400 block">Unit / Flat Number</span>
                     <span className="font-bold text-slate-800">#{property.Unit_No}</span>
                   </div>
                   <div className="p-2 bg-white rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-400 block">Floor Number</span>
+                    <span className="text-[10px] text-slate-400 block">Vertical Floor</span>
                     <span className="font-bold text-slate-800">Floor {property.Floor_No}</span>
                   </div>
                   <div className="p-2 bg-white rounded-lg border border-slate-100">
                     <span className="text-[10px] text-slate-400 block">Carpet Area</span>
-                    <span className="font-bold text-slate-800">{property.Area_sq_m} sq.m</span>
+                    <span className="font-bold text-slate-800">{property.Area_sq_m} m²</span>
                   </div>
                   <div className="p-2 bg-white rounded-lg border border-slate-100">
-                    <span className="text-[10px] text-slate-400 block">Property ID</span>
+                    <span className="text-[10px] text-slate-400 block">Unit ID</span>
                     <span className="font-mono font-bold text-slate-800">{property.Property_ID}</span>
                   </div>
                 </div>
-              </div>
-            )}
 
-            {/* 2. Building Details */}
-            {building && (
-              <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-slate-800 text-xs flex items-center gap-1.5">
-                    <Building2 className="w-4 h-4 text-brand-600" />
-                    <span>Building Structure ({building.Building_ID})</span>
-                  </h4>
-                  <span className="text-[11px] font-semibold text-slate-600">
-                    {building.Building_Type}
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Total Height</span>
-                    <span className="font-bold text-slate-800">{building.Height_m} meters</span>
-                  </div>
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Storeys / Floors</span>
-                    <span className="font-bold text-slate-800">{building.Floors} Floors</span>
-                  </div>
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Associated Units</span>
-                    <span className="font-bold text-slate-800">{associatedProperties.length} Properties</span>
-                  </div>
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Parent Parcel</span>
-                    <span className="font-mono font-bold text-slate-800">{building.Parcel_ID}</span>
-                  </div>
+                <div className="p-2 bg-amber-50 rounded-lg text-[10px] text-amber-800 leading-tight border border-amber-200">
+                  <strong>DEMO NOTICE:</strong> Vertical flat subdivision and ULPIN code are demonstrated for concept evaluation; official interior cadastral records are not in public OSM.
                 </div>
               </div>
             )}
 
-            {/* 3. Land Parcel Details */}
-            {parcel && (
-              <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <h4 className="font-bold text-slate-800 text-xs flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-emerald-600" />
-                    <span>Cadastral Parcel ({parcel.Parcel_ID})</span>
-                  </h4>
-                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    {parcel.Land_Type}
+            {/* 3. Cadastral Parcel Status Section (Requirement 4) */}
+            <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200/90 shadow-2xs space-y-2">
+              <div className="flex items-center justify-between">
+                <h4 className="font-bold text-slate-800 text-xs flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-cyan-600" />
+                  <span>Cadastral Parcel Reference</span>
+                </h4>
+                <span className="text-[9px] font-medium px-2 py-0.5 rounded-full bg-slate-200 text-slate-700">
+                  {parcel ? parcel.Parcel_ID : 'LP-DVD'}
+                </span>
+              </div>
+
+              <div className="p-2.5 bg-white rounded-lg border border-slate-200 text-xs space-y-1">
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-slate-400">Cadastral Status:</span>
+                  <span className="font-semibold text-slate-700">
+                    Unavailable from public source
                   </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Parcel Area</span>
-                    <span className="font-bold text-slate-800">{parcel.Area_sq_m} sq.m</span>
-                  </div>
-                  <div className="p-2 bg-slate-50 rounded-lg">
-                    <span className="text-[10px] text-slate-400 block">Coordinates</span>
-                    <span className="font-mono text-[11px] font-bold text-slate-800">
-                      {parcel.Latitude.toFixed(5)}, {parcel.Longitude.toFixed(5)}
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-slate-400">State Cadastre:</span>
+                  <span className="text-slate-700">Andhra Pradesh Meebhoomi / Bhuvan</span>
+                </div>
+                <div className="flex items-center justify-between text-[11px]">
+                  <span className="text-slate-400">API Readiness:</span>
+                  <span className="text-emerald-700 font-bold">Standard ULPIN Integration Ready</span>
                 </div>
               </div>
-            )}
+
+              <p className="text-[10px] text-slate-500 leading-relaxed">
+                Notice: Andhra Pradesh cadastral boundary vectors (Meebhoomi FMB village records) are restricted to state intranet portals and not published as open public GIS APIs. Architecture is prepared for official Department of Land Resources integration.
+              </p>
+            </div>
           </>
         )}
 
@@ -300,7 +348,7 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
                 <span className="font-mono text-cyan-800">{interiorLayout.totalCarpetArea} m²</span>
               </div>
               <p className="text-[11px] text-cyan-800 leading-relaxed">
-                Volumetric room dimensions with Living Hall, Master Bedroom, Kitchen & Balcony. Click below to inspect in 3D:
+                Volumetric room dimensions with Living Hall, Master Bedroom, Kitchen & Balcony. Inspect inside the 3D viewer:
               </p>
               <button
                 onClick={onOpen3DViewer}
@@ -341,40 +389,27 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
           </div>
         )}
 
-        {/* Ownership Tab */}
+        {/* Ownership Tab with Strict Demo Data Badge */}
         {activeTab === 'ownership' && (
           <div className="space-y-4">
-            {enableDemoOverlay ? (
-              <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900">
-                <div className="flex items-center gap-2 font-bold mb-1">
-                  <ShieldCheck className="w-4 h-4 text-amber-700" />
-                  <span>Andhra Pradesh Meebhoomi Cadastre Overlay</span>
-                  <span className="text-[9px] px-1.5 py-0.2 bg-amber-200 text-amber-900 font-bold rounded">DEMO DATA</span>
-                </div>
-                <p className="text-[11px] text-amber-800">
-                  Simulated citizen registry & MeeSeva e-deed mutation chain for hackathon presentation demonstration.
-                </p>
+            <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900">
+              <div className="flex items-center gap-2 font-bold mb-1">
+                <AlertTriangle className="w-4 h-4 text-amber-700" />
+                <span>DEMO DATA – NOT OFFICIAL PROPERTY RECORD</span>
               </div>
-            ) : (
-              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-600">
-                <div className="flex items-center gap-1.5 font-semibold text-slate-800">
-                  <Info className="w-4 h-4 text-brand-600" />
-                  <span>Baseline Mode (Strict Rule 23)</span>
-                </div>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Showing raw dataset values. Citizen owner names and deed timestamps are not in the primary CSV files. Toggle "Cadastre Demo Overlay" in top header to view simulated Meebhoomi records.
-                </p>
-              </div>
-            )}
+              <p className="text-[11px] text-amber-800 leading-relaxed">
+                Citizen title records, patta numbers, and deed mutation histories are generated solely for hackathon prototype demonstration. OpenStreetMap does not contain private ownership records.
+              </p>
+            </div>
 
             {/* Current Owner Card */}
             <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Current Legal Owner</span>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  ownership.ownershipStatus === 'Verified' ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800'
-                }`}>
-                  {ownership.ownershipStatus}
+                <span className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+                  Simulated Title Holder
+                </span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                  {ownership.ownershipStatus} (Demo)
                 </span>
               </div>
               <div className="flex items-center gap-3 mt-1">
@@ -387,69 +422,61 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
                 </div>
               </div>
 
-              {enableDemoOverlay && (
-                <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-slate-100 text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 block">Survey Number</span>
-                    <span className="font-bold text-slate-800">{ownership.surveyNumber}</span>
-                  </div>
-                  <div>
-                    <span className="text-[10px] text-slate-400 block">Patta Number</span>
-                    <span className="font-mono text-slate-800">{ownership.pattaNumber}</span>
-                  </div>
+              <div className="grid grid-cols-2 gap-2 mt-3 pt-3 border-t border-slate-100 text-xs">
+                <div>
+                  <span className="text-[10px] text-slate-400 block">Sample Survey No.</span>
+                  <span className="font-bold text-slate-800">{ownership.surveyNumber}</span>
                 </div>
-              )}
+                <div>
+                  <span className="text-[10px] text-slate-400 block">Sample Patta No.</span>
+                  <span className="font-mono text-slate-800">{ownership.pattaNumber}</span>
+                </div>
+              </div>
             </div>
 
             {/* Transaction Timeline */}
             <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
               <h4 className="font-bold text-slate-800 text-xs mb-3 flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-brand-600" />
-                <span>Ownership & Mutation Timeline</span>
+                <span>Simulated Mutation Timeline (Demo)</span>
               </h4>
 
-              {enableDemoOverlay ? (
-                <div className="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-300 ring-4 ring-white" />
-                    <div className="text-xs">
-                      <span className="text-[10px] text-slate-400 block">Previous Title Holder</span>
-                      <span className="font-semibold text-slate-700">{ownership.previousOwner}</span>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-cyan-500 ring-4 ring-white animate-pulse" />
-                    <div className="text-xs p-2.5 bg-cyan-50/70 rounded-lg border border-cyan-100">
-                      <div className="flex items-center justify-between text-cyan-900 font-bold">
-                        <span>{ownership.transactionType}</span>
-                        <span>{ownership.transactionDate}</span>
-                      </div>
-                      <div className="text-[11px] text-cyan-800 mt-1">
-                        Deed #{ownership.deedNumber}
-                      </div>
-                      {ownership.considerationAmountINR && (
-                        <div className="text-[11px] text-cyan-700 mt-0.5 font-medium flex items-center gap-0.5">
-                          <span>Consideration:</span>
-                          <strong>₹{(ownership.considerationAmountINR).toLocaleString('en-IN')}</strong>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-white" />
-                    <div className="text-xs">
-                      <span className="text-[10px] text-emerald-600 font-bold block">Current Registered Cadastre</span>
-                      <span className="font-bold text-slate-800">{ownership.currentOwner}</span>
-                    </div>
+              <div className="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+                <div className="relative">
+                  <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-slate-300 ring-4 ring-white" />
+                  <div className="text-xs">
+                    <span className="text-[10px] text-slate-400 block">Previous Title Holder</span>
+                    <span className="font-semibold text-slate-700">{ownership.previousOwner}</span>
                   </div>
                 </div>
-              ) : (
-                <div className="text-xs text-slate-500 py-3 text-center bg-slate-50 rounded-lg">
-                  No historical transaction deed linked in baseline dataset.
+
+                <div className="relative">
+                  <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-cyan-500 ring-4 ring-white animate-pulse" />
+                  <div className="text-xs p-2.5 bg-cyan-50/70 rounded-lg border border-cyan-100">
+                    <div className="flex items-center justify-between text-cyan-900 font-bold">
+                      <span>{ownership.transactionType}</span>
+                      <span>{ownership.transactionDate}</span>
+                    </div>
+                    <div className="text-[11px] text-cyan-800 mt-1">
+                      Deed #{ownership.deedNumber}
+                    </div>
+                    {ownership.considerationAmountINR && (
+                      <div className="text-[11px] text-cyan-700 mt-0.5 font-medium flex items-center gap-0.5">
+                        <span>Consideration:</span>
+                        <strong>₹{(ownership.considerationAmountINR).toLocaleString('en-IN')}</strong>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
+
+                <div className="relative">
+                  <span className="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-white" />
+                  <div className="text-xs">
+                    <span className="text-[10px] text-emerald-600 font-bold block">Current Registered Cadastre</span>
+                    <span className="font-bold text-slate-800">{ownership.currentOwner}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -89,7 +89,7 @@ export const AiInsightsModal: React.FC<AiInsightsModalProps> = ({
 
         {/* Footer */}
         <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
-          <span>Target Jurisdiction: YSR Kadapa Urban Cadastre, Andhra Pradesh</span>
+          <span>Target Jurisdiction: Duvvada, Visakhapatnam, Andhra Pradesh</span>
           <button
             onClick={onClose}
             className="px-4 py-2 bg-slate-900 text-white font-bold rounded-xl hover:bg-slate-800 transition"

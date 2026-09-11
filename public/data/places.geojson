@@ -1,0 +1,227 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "source": "OpenStreetMap",
+    "dataStatus": "REAL_PUBLIC_DATA",
+    "region": "Duvvada, Visakhapatnam",
+    "generatedAt": "2026-09-11T13:53:36.835Z"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "POI-1054408140",
+      "properties": {
+        "id": 1054408140,
+        "name": "Duvvada",
+        "category": "Transit Station",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1513762,
+          17.7035979
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-8527427017",
+      "properties": {
+        "id": 8527427017,
+        "name": "Mustafa Junction",
+        "category": "marketplace",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1664693,
+          17.6906041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714664",
+      "properties": {
+        "id": 12864714664,
+        "name": "Zudio",
+        "category": "clothes",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1666895,
+          17.6903967
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714665",
+      "properties": {
+        "id": 12864714665,
+        "name": "Fashion City",
+        "category": "clothes",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1667491,
+          17.6908368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714666",
+      "properties": {
+        "id": 12864714666,
+        "name": "The Visakhapatnam Cooperative Bank",
+        "category": "bank",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1666971,
+          17.6927971
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714667",
+      "properties": {
+        "id": 12864714667,
+        "name": "Abdul Cycles",
+        "category": "bicycle",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1663271,
+          17.6935257
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714668",
+      "properties": {
+        "id": 12864714668,
+        "name": "Pizza Hut",
+        "category": "restaurant",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1629557,
+          17.6967262
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714669",
+      "properties": {
+        "id": 12864714669,
+        "name": "KFC",
+        "category": "fast_food",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1628471,
+          17.6967709
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714670",
+      "properties": {
+        "id": 12864714670,
+        "name": "Nandanam",
+        "category": "restaurant",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1612445,
+          17.6980422
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714671",
+      "properties": {
+        "id": 12864714671,
+        "name": "MedPlus",
+        "category": "pharmacy",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1602748,
+          17.6982716
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-12864714673",
+      "properties": {
+        "id": 12864714673,
+        "name": "Grace Baptist Church",
+        "category": "place_of_worship",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.1555035,
+          17.7025011
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "POI-1355591102",
+      "properties": {
+        "id": 1355591102,
+        "name": "Vignan",
+        "category": "college",
+        "source": "OpenStreetMap",
+        "dataStatus": "REAL_PUBLIC_DATA"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          83.165528,
+          17.711103
+        ]
+      }
+    }
+  ]
+}

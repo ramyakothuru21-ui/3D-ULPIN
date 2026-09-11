@@ -72,9 +72,9 @@ export function getOwnershipRecord(
   const day = String(1 + (hash % 28)).padStart(2, '0');
   const txDate = `${year}-${month}-${day}`;
 
-  const deedNo = `AP-KDP-${year}-${String(1000 + (hash * 17) % 9000)}`;
+  const deedNo = `AP-VSP-DVD-${year}-${String(1000 + (hash * 17) % 9000)}`;
   const surveyNo = `${120 + (hash % 85)}/${1 + (hash % 4)}${String.fromCharCode(65 + (hash % 3))}`;
-  const pattaNo = `AP-PATTA-${20000 + (hash * 23) % 80000}`;
+  const pattaNo = `AP-VSP-PATTA-${20000 + (hash * 23) % 80000}`;
   const consideration = 1800000 + (hash % 60) * 125000;
 
   return {

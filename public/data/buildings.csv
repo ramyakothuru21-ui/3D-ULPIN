@@ -1,101 +1,465 @@
-Building_ID,Parcel_ID,Latitude,Longitude,Floors,Height_m,Building_Type
-B001,LP001,14.472789,78.8205,4,12,Commercial
-B002,LP002,14.462791,78.82205,7,21,Apartment
-B003,LP003,14.461739,78.828438,6,18,Commercial
-B004,LP004,14.464653,78.83204,2,6,Commercial
-B005,LP005,14.472998,78.830899,5,15,Mixed Use
-B006,LP006,14.465564,78.837386,6,18,Mixed Use
-B007,LP007,14.473963,78.826805,5,15,Independent House
-B008,LP008,14.462044,78.827599,4,12,Mixed Use
-B009,LP009,14.472075,78.836143,7,21,Independent House
-B010,LP010,14.462497,78.838446,5,15,Mixed Use
-B011,LP011,14.476588,78.83237,1,3,Commercial
-B012,LP012,14.463846,78.821391,5,15,Independent House
-B013,LP013,14.479704,78.837106,7,21,Commercial
-B014,LP014,14.465559,78.832714,8,24,Mixed Use
-B015,LP015,14.467105,78.833404,8,24,Independent House
-B016,LP016,14.472961,78.832183,8,24,Independent House
-B017,LP017,14.464896,78.829245,2,6,Commercial
-B018,LP018,14.473763,78.824392,6,18,Apartment
-B019,LP019,14.464581,78.820642,4,12,Commercial
-B020,LP020,14.461324,78.838263,4,12,Independent House
-B021,LP021,14.466294,78.833109,3,9,Apartment
-B022,LP022,14.469177,78.825298,1,3,Independent House
-B023,LP023,14.47078,78.83494,8,24,Apartment
-B024,LP024,14.467988,78.824386,8,24,Mixed Use
-B025,LP025,14.46987,78.835116,4,12,Mixed Use
-B026,LP026,14.472549,78.835842,8,24,Mixed Use
-B027,LP027,14.467695,78.831918,4,12,Independent House
-B028,LP028,14.479422,78.837216,1,3,Apartment
-B029,LP029,14.462291,78.837696,7,21,Independent House
-B030,LP030,14.466804,78.82587,3,9,Mixed Use
-B031,LP031,14.479076,78.837517,1,3,Independent House
-B032,LP032,14.475239,78.830154,2,6,Mixed Use
-B033,LP033,14.465969,78.832779,3,9,Mixed Use
-B034,LP034,14.467478,78.823231,6,18,Mixed Use
-B035,LP035,14.47837,78.831979,7,21,Mixed Use
-B036,LP036,14.478582,78.837574,3,9,Mixed Use
-B037,LP037,14.464789,78.824817,8,24,Commercial
-B038,LP038,14.461713,78.82972,4,12,Commercial
-B039,LP039,14.475317,78.822568,8,24,Independent House
-B040,LP040,14.463303,78.830553,5,15,Mixed Use
-B041,LP041,14.478578,78.835105,2,6,Commercial
-B042,LP042,14.466234,78.839903,4,12,Commercial
-B043,LP043,14.477992,78.82903,6,18,Commercial
-B044,LP044,14.466762,78.831766,2,6,Independent House
-B045,LP045,14.460144,78.834157,3,9,Independent House
-B046,LP046,14.478108,78.837193,7,21,Independent House
-B047,LP047,14.46557,78.829708,4,12,Apartment
-B048,LP048,14.47871,78.831421,7,21,Mixed Use
-B049,LP049,14.47615,78.823808,6,18,Mixed Use
-B050,LP050,14.467086,78.828222,7,21,Apartment
-B051,LP051,14.473467,78.839683,4,12,Mixed Use
-B052,LP052,14.474564,78.836012,7,21,Apartment
-B053,LP053,14.463804,78.828972,7,21,Mixed Use
-B054,LP054,14.469253,78.83749,1,3,Commercial
-B055,LP055,14.461958,78.833043,5,15,Mixed Use
-B056,LP056,14.47938,78.838527,7,21,Independent House
-B057,LP057,14.468128,78.829627,8,24,Independent House
-B058,LP058,14.463293,78.820043,5,15,Mixed Use
-B059,LP059,14.465705,78.833932,8,24,Apartment
-B060,LP060,14.473237,78.829733,7,21,Commercial
-B061,LP061,14.479374,78.831584,7,21,Independent House
-B062,LP062,14.466272,78.821003,8,24,Independent House
-B063,LP063,14.463149,78.839216,1,3,Mixed Use
-B064,LP064,14.46137,78.821359,1,3,Apartment
-B065,LP065,14.462398,78.837806,7,21,Independent House
-B066,LP066,14.460795,78.82164,8,24,Independent House
-B067,LP067,14.470456,78.838694,1,3,Commercial
-B068,LP068,14.466284,78.825312,7,21,Commercial
-B069,LP069,14.466,78.826324,4,12,Mixed Use
-B070,LP070,14.460186,78.832423,6,18,Commercial
-B071,LP071,14.461465,78.824263,7,21,Commercial
-B072,LP072,14.477617,78.837585,7,21,Commercial
-B073,LP073,14.468764,78.830864,2,6,Mixed Use
-B074,LP074,14.470579,78.833357,1,3,Apartment
-B075,LP075,14.462072,78.837563,6,18,Independent House
-B076,LP076,14.474848,78.823109,2,6,Apartment
-B077,LP077,14.474352,78.824072,1,3,Independent House
-B078,LP078,14.470108,78.825022,4,12,Apartment
-B079,LP079,14.461846,78.828472,3,9,Independent House
-B080,LP080,14.466671,78.822616,3,9,Mixed Use
-B081,LP081,14.474825,78.831034,2,6,Independent House
-B082,LP082,14.462237,78.838901,8,24,Commercial
-B083,LP083,14.470912,78.836692,6,18,Independent House
-B084,LP084,14.468596,78.820837,2,6,Independent House
-B085,LP085,14.477978,78.824202,5,15,Apartment
-B086,LP086,14.467074,78.831198,1,3,Commercial
-B087,LP087,14.47499,78.838515,7,21,Mixed Use
-B088,LP088,14.479524,78.836215,4,12,Apartment
-B089,LP089,14.463587,78.83849,4,12,Apartment
-B090,LP090,14.476045,78.837281,5,15,Apartment
-B091,LP091,14.463184,78.834026,1,3,Commercial
-B092,LP092,14.477172,78.824449,7,21,Commercial
-B093,LP093,14.466993,78.836411,2,6,Commercial
-B094,LP094,14.460473,78.823863,1,3,Mixed Use
-B095,LP095,14.479338,78.825582,8,24,Apartment
-B096,LP096,14.47359,78.836873,7,21,Commercial
-B097,LP097,14.462307,78.839408,8,24,Independent House
-B098,LP098,14.460765,78.831931,7,21,Independent House
-B099,LP099,14.468728,78.839685,5,15,Mixed Use
-B100,LP100,14.463802,78.820888,8,24,Mixed Use
+Building_ID,Parcel_ID,Latitude,Longitude,Floors,Height_m,Building_Type,Name,Osm_ID,Area_sq_m,HasRealLevels,HasRealHeight
+B001,LP001,17.695596,83.163853,5,16,Apartment,"KBC Heights",487132882,811,true,false
+B002,LP002,17.695579,83.163643,3,9.600000000000001,Independent House,"Lakshmi Nilayam",487132996,243.7,true,false
+B003,LP003,17.695702,83.1633,3,9.600000000000001,Independent House,"Sadgun Rao Residency",487133035,246.8,true,false
+B004,LP004,17.695648,83.162934,3,9.600000000000001,Independent House,"Kamala Nilayam",487133598,168.5,true,false
+B005,LP005,17.695554,83.162887,3,9.600000000000001,Independent House,"Rajmannar Residency",487134175,207.2,true,false
+B006,LP006,17.695447,83.163208,2,6.4,Independent House,"Krishnama Raju Residency",487134249,170.5,true,false
+B007,LP007,17.695342,83.163446,3,9.600000000000001,Independent House,"Prabhavati Residency",487134302,188.9,true,false
+B008,LP008,17.69534,83.163049,2,6.4,Independent House,"Hanumantha Rao Residency",487135832,124.6,true,false
+B009,LP009,17.6953,83.163132,2,6.4,Independent House,"Ramakrishna Chowdary Residency",487135869,153.1,false,false
+B010,LP010,17.695109,83.163524,3,9.600000000000001,Independent House,"Mallikarjuna Residency",487135919,246.2,true,false
+B011,LP011,17.695118,83.163752,5,16,Apartment,"VVK Top Hills",487135947,844.9,true,false
+B012,LP012,17.694823,83.163545,6,19.200000000000003,Apartment,"Balaji Towers",487135979,351.1,true,false
+B013,LP013,17.694677,83.163445,5,16,Apartment,"Rama Heights",487136665,304.6,true,false
+B014,LP014,17.694764,83.16328,5,16,Apartment,"Sri Sai Residency",487136712,203,true,false
+B015,LP015,17.694869,83.163081,5,16,Apartment,"Ramachandra Residency",487136736,231.6,true,false
+B016,LP016,17.6949,83.162934,2,6.4,Independent House,"Vasantha Nilayam",487136774,162.5,true,false
+B017,LP017,17.694987,83.162772,3,9.600000000000001,Independent House,"rama padmini nilayam",487136776,145,true,false
+B018,LP018,17.695029,83.162691,3,9.600000000000001,Independent House,"satyanarayana Residency",487136808,117.6,true,false
+B019,LP019,17.695181,83.162775,2,6.4,Independent House,"Sattibabu Residency",487136817,154.9,true,false
+B020,LP020,17.695134,83.162852,1,3.2,Independent House,"VenkatRao Residency",487136854,124.7,true,false
+B021,LP021,17.695096,83.162934,1,3.2,Independent House,"Vasanth Rai Residency",487136923,127.8,true,false
+B022,LP022,17.695028,83.163084,2,6.4,Independent House,"Lakshmi nivas",487136985,159.7,true,false
+B023,LP023,17.694986,83.163166,2,6.4,Independent House,"Siva Prasad Residency",487136999,132,true,false
+B024,LP024,17.6949,83.163342,2,6.4,Apartment,"Sri Vatsavai Nilayam",487137058,237,true,false
+B025,LP025,17.694253,83.162,2,6.4,Independent House,"Rekha Nivas",487142921,152.9,true,false
+B026,LP026,17.694352,83.161453,1,3.2,Independent House,"Vijay Kumar Singh Residency",487143206,262,true,false
+B027,LP027,17.694561,83.162164,2,6.4,Independent House,"colony library",487157097,25.1,false,false
+B028,LP028,17.694633,83.161634,5,16,Apartment,"Manmadha residency",487157506,228.9,false,false
+B029,LP029,17.694841,83.161729,5,16,Apartment,"Vishnu Executive Avenue",487157584,411.4,true,false
+B030,LP030,17.695017,83.161836,3,9.600000000000001,Independent House,"SVR Mansion",487157695,186.5,true,false
+B031,LP031,17.695142,83.161896,2,6.4,Independent House,"Ganesh Nivas",487158001,240,true,false
+B032,LP032,17.695942,83.163097,2,6.4,Independent House,"Gopichand Residency",487158211,241.8,true,false
+B033,LP033,17.696067,83.163191,2,6.4,Independent House,"Gopichand Residency",487160168,190.6,true,false
+B034,LP034,17.695909,83.163416,3,9.600000000000001,Independent House,"Appala raju Residency",487160220,244.1,true,false
+B035,LP035,17.696245,83.163947,1,3.2,Independent House,"grocery store",487160356,92,true,false
+B036,LP036,17.695838,83.163042,1,3.2,Apartment,"Ravikumar Residency",487160451,222.4,true,false
+B037,LP037,17.697012,83.16329,1,3.2,Commercial,"servicing center",487160563,402,true,false
+B038,LP038,17.696879,83.163396,1,3.2,Independent House,"indian overseas bank",487160783,71.1,true,false
+B039,LP039,17.696419,83.162591,3,9.600000000000001,Independent House,"Apparao Residency",487160824,200.7,true,false
+B040,LP040,17.695938,83.162309,2,6.4,Independent House,"Duvvada Building B040",487160901,242.1,false,false
+B041,LP041,17.695658,83.162359,2,6.4,Independent House,"Duvvada Building B041",487161017,214.5,false,false
+B042,LP042,17.695457,83.162252,2,6.4,Independent House,"Tilak Residency",487161057,151.8,false,false
+B043,LP043,17.695433,83.162054,2,6.4,Independent House,"Duvvada Building B043",487162103,238.5,false,false
+B044,LP044,17.695355,83.162211,2,6.4,Independent House,"MuralidharReddy Residency",487162120,256.5,false,false
+B045,LP045,17.694722,83.160889,2,6.4,Independent House,"venkateshwara Nilayam",487162142,210,false,false
+B046,LP046,17.694692,83.160994,2,6.4,Independent House,"Trivedi Residency",487162146,215,false,false
+B047,LP047,17.694634,83.161131,3,9.600000000000001,Independent House,"SVR Mansion",487162210,263.1,true,false
+B048,LP048,17.694838,83.161293,2,6.4,Independent House,"emerald",487162233,150.9,false,false
+B049,LP049,17.694959,83.161362,2,6.4,Independent House,"Ganesh Nivas",487162234,122.5,false,false
+B050,LP050,17.694843,83.161437,2,6.4,Independent House,"Murali Residency",487162306,127.1,false,false
+B051,LP051,17.694922,83.16149,2,6.4,Independent House,"Satish Kumar Residency",487162365,148.2,false,false
+B052,LP052,17.695249,83.16137,2,6.4,Independent House,"Seshagiri Rao Residency",487162433,116.1,false,false
+B053,LP053,17.695274,83.161285,2,6.4,Independent House,"Shanti Nivas",487162498,134.8,false,false
+B054,LP054,17.695151,83.161523,2,6.4,Independent House,"Duvvada Building B054",487162732,166.8,false,false
+B055,LP055,17.695286,83.161587,2,6.4,Independent House,"Duvvada Building B055",487162848,106.9,false,false
+B056,LP056,17.695239,83.16168,2,6.4,Independent House,"Duvvada Building B056",487162951,153.6,false,false
+B057,LP057,17.69548,83.161202,2,6.4,Independent House,"nayak Residency",487163512,140.6,true,false
+B058,LP058,17.695384,83.161088,3,9.600000000000001,Independent House,"RAMA",487163574,198.3,true,false
+B059,LP059,17.695734,83.161248,2,6.4,Independent House,"Bhavana Residency",487163715,133.2,false,false
+B060,LP060,17.695689,83.161334,2,6.4,Independent House,"Duvvada Building B060",487163752,142.6,false,false
+B061,LP061,17.695771,83.161479,2,6.4,Independent House,"Duvvada Building B061",487163764,118.3,false,false
+B062,LP062,17.696071,83.161443,2,6.4,Independent House,"Madhav",487163838,190.9,false,false
+B063,LP063,17.695998,83.161615,2,6.4,Independent House,"Srishti Residency",487163858,178.5,false,false
+B064,LP064,17.696239,83.161555,2,6.4,Independent House,"Duvvada Building B064",487163863,145.4,false,false
+B065,LP065,17.696319,83.161755,2,6.4,Independent House,"Duvvada Building B065",487163981,147.8,false,false
+B066,LP066,17.696535,83.161709,5,16,Apartment,"Duvvada Apartments B066",487164288,160.6,false,false
+B067,LP067,17.696576,83.161394,5,16,Apartment,"Chanakya Residency",487182677,231.9,true,false
+B068,LP068,17.696808,83.161529,5,16,Apartment,"Panchajanya Heights",487182767,256,true,false
+B069,LP069,17.696705,83.161992,2,6.4,Independent House,"Sri Lakshmi Venkateshwara Nilayam",487183042,207.7,true,false
+B070,LP070,17.696546,83.161881,2,6.4,Independent House,"Murali Residency",487183240,130.6,false,false
+B071,LP071,17.696469,83.161837,2,6.4,Independent House,"Mallepudi Nivas",487183352,149.8,false,false
+B072,LP072,17.69628,83.162028,2,6.4,Independent House,"Rama Raju Nivas",487185367,149.5,false,false
+B073,LP073,17.696139,83.162118,2,6.4,Independent House,"Madhava Rao Residency",487185980,141.4,true,false
+B074,LP074,17.696087,83.161945,2,6.4,Independent House,"Duvvada Building B074",487187629,270.2,false,false
+B075,LP075,17.696561,83.162267,3,9.600000000000001,Independent House,"Srinivasa Residency",487189443,129.5,true,false
+B076,LP076,17.696511,83.162346,3,9.600000000000001,Independent House,"Venkata rao Residency",487191012,117.2,true,false
+B077,LP077,17.696352,83.162239,3,9.600000000000001,Independent House,"Jagannadha Raju Residency",487191013,165.8,true,false
+B078,LP078,17.695624,83.161785,2,6.4,Independent House,"Duvvada Building B078",487191087,137,false,false
+B079,LP079,17.69549,83.161716,2,6.4,Independent House,"Duvvada Building B079",487191121,153,false,false
+B080,LP080,17.695889,83.161799,2,6.4,Independent House,"Duvvada Building B080",487191258,120.9,false,false
+B081,LP081,17.695982,83.161874,2,6.4,Independent House,"Duvvada Building B081",487191429,127.2,false,false
+B082,LP082,17.695845,83.161884,2,6.4,Independent House,"Satish",487191463,126.6,false,false
+B083,LP083,17.695919,83.162,2,6.4,Independent House,"Shiva Residency",487192037,123.7,true,false
+B084,LP084,17.695807,83.161967,2,6.4,Independent House,"lakshmi nivas",487192118,147.4,true,false
+B085,LP085,17.699362,83.15987,5,16,Apartment,"shakila grocery store",487193021,373.3,false,false
+B086,LP086,17.698747,83.159942,2,6.4,Independent House,"Duvvada Building B086",487193227,68.5,false,false
+B087,LP087,17.694881,83.165153,2,6.4,Independent House,"Pastry Chef(Bakery)",495476165,68.4,false,false
+B088,LP088,17.699504,83.170028,3,9.600000000000001,Residential,"Duvvada Building B088",495476183,9938.2,false,false
+B089,LP089,17.710983,83.150102,2,6.4,Independent House,"Duvvada Building B089",635487459,59.3,false,false
+B090,LP090,17.711016,83.150007,2,6.4,Independent House,"Duvvada Building B090",635487460,59.2,false,false
+B091,LP091,17.710956,83.14998,2,6.4,Independent House,"Duvvada Building B091",635487461,72.4,false,false
+B092,LP092,17.710922,83.15007,2,6.4,Independent House,"Duvvada Building B092",635487462,72.6,false,false
+B093,LP093,17.710738,83.150443,2,6.4,Independent House,"Duvvada Building B093",635487463,49,false,false
+B094,LP094,17.710693,83.150257,5,16,Apartment,"Duvvada Building B094",635487464,183.6,false,false
+B095,LP095,17.711239,83.150459,2,6.4,Independent House,"Duvvada Building B095",635487465,50.2,false,false
+B096,LP096,17.71106,83.15038,2,6.4,Independent House,"Duvvada Building B096",635487466,63.9,false,false
+B097,LP097,17.711494,83.151007,2,6.4,Independent House,"Duvvada Building B097",635487467,93.1,false,false
+B098,LP098,17.711314,83.150495,2,6.4,Independent House,"Duvvada Building B098",635487468,64.7,false,false
+B099,LP099,17.711485,83.150671,2,6.4,Independent House,"Duvvada Building B099",635487469,62.9,false,false
+B100,LP100,17.711177,83.150775,2,6.4,Independent House,"Duvvada Building B100",635487470,50,false,false
+B101,LP101,17.711001,83.151251,2,6.4,Independent House,"Duvvada Building B101",635487471,50.2,false,false
+B102,LP102,17.710992,83.150788,2,6.4,Independent House,"Duvvada Building B102",635487472,73.9,false,false
+B103,LP103,17.7106,83.150634,2,6.4,Independent House,"Duvvada Building B103",635487473,163.7,false,false
+B104,LP104,17.710758,83.15079,2,6.4,Independent House,"Duvvada Building B104",635487474,138.7,false,false
+B105,LP105,17.710918,83.151027,2,6.4,Independent House,"Duvvada Building B105",635487475,95,false,false
+B106,LP106,17.712283,83.149849,4,12.8,Commercial,"Duvvada Building B106",635487476,444.5,false,false
+B107,LP107,17.712643,83.151167,2,6.4,Independent House,"Duvvada Building B107",635487477,102.7,false,false
+B108,LP108,17.712311,83.151617,2,6.4,Independent House,"Duvvada Building B108",635487478,62.6,false,false
+B109,LP109,17.71216,83.151965,2,6.4,Independent House,"Duvvada Building B109",635487479,116.9,false,false
+B110,LP110,17.711851,83.15197,2,6.4,Independent House,"Duvvada Building B110",635487480,118.4,false,false
+B111,LP111,17.712273,83.151139,2,6.4,Independent House,"Duvvada Building B111",635487481,82.3,false,false
+B112,LP112,17.712195,83.151018,2,6.4,Independent House,"Duvvada Building B112",635487482,82.3,false,false
+B113,LP113,17.71177,83.150129,2,6.4,Independent House,"Duvvada Building B113",635487483,97.2,false,false
+B114,LP114,17.711944,83.150906,2,6.4,Independent House,"Duvvada Building B114",635487484,79,false,false
+B115,LP115,17.711686,83.150617,2,6.4,Independent House,"Duvvada Building B115",635487485,76,false,false
+B116,LP116,17.711802,83.150285,2,6.4,Independent House,"Duvvada Building B116",635487486,175.1,false,false
+B117,LP117,17.711349,83.150958,2,6.4,Independent House,"Duvvada Building B117",635487487,75.9,false,false
+B118,LP118,17.711822,83.150931,2,6.4,Independent House,"Duvvada Building B118",635487488,79,false,false
+B119,LP119,17.711863,83.1511,2,6.4,Independent House,"Duvvada Building B119",635487489,72.2,false,false
+B120,LP120,17.711683,83.151639,2,6.4,Independent House,"Duvvada Building B120",635487490,72.4,false,false
+B121,LP121,17.711492,83.151742,2,6.4,Independent House,"Duvvada Building B121",635487491,171.6,false,false
+B122,LP122,17.711659,83.151314,2,6.4,Independent House,"Duvvada Building B122",635487492,93.3,false,false
+B123,LP123,17.711611,83.151436,2,6.4,Independent House,"Duvvada Building B123",635487493,97.6,false,false
+B124,LP124,17.693719,83.164395,2,6.4,Independent House,"Duvvada Building B124",635518520,138.2,false,false
+B125,LP125,17.693606,83.164367,2,6.4,Independent House,"Duvvada Building B125",635518522,138.2,false,false
+B126,LP126,17.693771,83.164145,5,16,Apartment,"Duvvada Building B126",635518523,248.4,false,false
+B127,LP127,17.693825,83.164015,2,6.4,Independent House,"Duvvada Building B127",635518525,168.6,false,false
+B128,LP128,17.693843,83.163835,2,6.4,Independent House,"Duvvada Building B128",635518527,123.5,false,false
+B129,LP129,17.693676,83.163424,4,12.8,Commercial,"Duvvada Building B129",635518529,442.6,false,false
+B130,LP130,17.69373,83.16322,5,16,Apartment,"Duvvada Building B130",635518531,265.9,false,false
+B131,LP131,17.693728,83.16288,5,16,Apartment,"Duvvada Building B131",635518532,194.7,false,false
+B132,LP132,17.693407,83.162782,5,16,Apartment,"Duvvada Building B132",635518533,274.9,false,false
+B133,LP133,17.692928,83.162843,2,6.4,Independent House,"Duvvada Building B133",635518534,136.6,false,false
+B134,LP134,17.692977,83.163054,2,6.4,Independent House,"Duvvada Building B134",635518535,163.3,false,false
+B135,LP135,17.692851,83.163027,2,6.4,Independent House,"Duvvada Building B135",635518536,163.3,false,false
+B136,LP136,17.692487,83.163036,2,6.4,Independent House,"Duvvada Building B136",635518538,85.4,false,false
+B137,LP137,17.69247,83.162955,2,6.4,Independent House,"Duvvada Building B137",635518540,158,false,false
+B138,LP138,17.692573,83.162643,5,16,Apartment,"Duvvada Building B138",635518542,298.3,false,false
+B139,LP139,17.692585,83.162466,5,16,Apartment,"Duvvada Building B139",635518544,324.9,false,false
+B140,LP140,17.693242,83.161832,5,16,Apartment,"Duvvada Building B140",635518546,377.7,false,false
+B141,LP141,17.6931,83.161777,5,16,Apartment,"Duvvada Building B141",635518547,243.7,false,false
+B142,LP142,17.693191,83.161532,2,6.4,Independent House,"Duvvada Building B142",635518548,164.7,false,false
+B143,LP143,17.692977,83.161328,5,16,Apartment,"Duvvada Building B143",635518549,231.6,false,false
+B144,LP144,17.692852,83.161606,5,16,Apartment,"Duvvada Building B144",635518550,183.6,false,false
+B145,LP145,17.692854,83.161753,2,6.4,Independent House,"Duvvada Building B145",635518551,138.8,false,false
+B146,LP146,17.692769,83.161726,2,6.4,Independent House,"Duvvada Building B146",635518553,138.8,false,false
+B147,LP147,17.692985,83.162043,4,12.8,Commercial,"Duvvada Building B147",635518555,439.8,false,false
+B148,LP148,17.692373,83.16114,2,6.4,Independent House,"Duvvada Building B148",635518557,123.7,false,false
+B149,LP149,17.692742,83.16102,4,12.8,Commercial,"Duvvada Building B149",635518559,413.1,false,false
+B150,LP150,17.692659,83.161262,5,16,Apartment,"Duvvada Building B150",635518561,330.9,false,false
+B151,LP151,17.692616,83.161614,2,6.4,Independent House,"Duvvada Building B151",635518567,119.4,false,false
+B152,LP152,17.692487,83.161618,5,16,Apartment,"Duvvada Building B152",635518569,230.5,false,false
+B153,LP153,17.692379,83.16141,5,16,Apartment,"Duvvada Building B153",635518571,183.6,false,false
+B154,LP154,17.692184,83.161524,5,16,Apartment,"Duvvada Building B154",635518573,228,false,false
+B155,LP155,17.692328,83.161561,5,16,Apartment,"Duvvada Building B155",635518575,215.9,false,false
+B156,LP156,17.692026,83.162844,2,6.4,Independent House,"Duvvada Building B156",635518576,126.4,false,false
+B157,LP157,17.692054,83.162751,2,6.4,Independent House,"Duvvada Building B157",635518578,126.3,false,false
+B158,LP158,17.692092,83.162531,2,6.4,Independent House,"Duvvada Building B158",635518580,179.3,false,false
+B159,LP159,17.69194,83.162474,2,6.4,Independent House,"Duvvada Building B159",635518582,139.5,false,false
+B160,LP160,17.691658,83.162123,2,6.4,Independent House,"Duvvada Building B160",635518584,172.6,false,false
+B161,LP161,17.691672,83.16183,2,6.4,Independent House,"Duvvada Building B161",635518586,170.7,false,false
+B162,LP162,17.691329,83.161634,2,6.4,Independent House,"Duvvada Building B162",635518588,118.2,false,false
+B163,LP163,17.691464,83.161598,5,16,Apartment,"Duvvada Building B163",635518590,379,false,false
+B164,LP164,17.691361,83.161791,4,12.8,Commercial,"Duvvada Building B164",635518592,439.1,false,false
+B165,LP165,17.691189,83.161989,2,6.4,Independent House,"Duvvada Building B165",635518594,115.2,false,false
+B166,LP166,17.691364,83.161977,5,16,Apartment,"Duvvada Building B166",635518596,279,false,false
+B167,LP167,17.690959,83.163014,5,16,Apartment,"Duvvada Building B167",635518598,198.7,false,false
+B168,LP168,17.691019,83.162804,5,16,Apartment,"Duvvada Building B168",635518599,192,false,false
+B169,LP169,17.691226,83.162976,2,6.4,Independent House,"Duvvada Building B169",635518600,158.9,false,false
+B170,LP170,17.691156,83.1643,2,6.4,Independent House,"Duvvada Building B170",635518601,179.1,false,false
+B171,LP171,17.691013,83.164257,2,6.4,Independent House,"Duvvada Building B171",635518604,177.2,false,false
+B172,LP172,17.691586,83.164085,2,6.4,Independent House,"Duvvada Building B172",635518606,179.4,false,false
+B173,LP173,17.691439,83.16404,5,16,Apartment,"Duvvada Building B173",635518609,219.2,false,false
+B174,LP174,17.69172,83.163368,2,6.4,Independent House,"Duvvada Building B174",635518610,169.1,false,false
+B175,LP175,17.691594,83.16332,2,6.4,Independent House,"Duvvada Building B175",635518612,169.1,false,false
+B176,LP176,17.691611,83.163483,2,6.4,Independent House,"Duvvada Building B176",635518614,118.8,false,false
+B177,LP177,17.691695,83.163521,2,6.4,Independent House,"Duvvada Building B177",635518615,118.7,false,false
+B178,LP178,17.691624,83.163771,2,6.4,Independent House,"Duvvada Building B178",635518616,164.8,false,false
+B179,LP179,17.691509,83.163728,2,6.4,Independent House,"Duvvada Building B179",635518617,164.9,false,false
+B180,LP180,17.691894,83.163187,2,6.4,Independent House,"Duvvada Building B180",635518618,133.1,false,false
+B181,LP181,17.691915,83.163109,2,6.4,Independent House,"Duvvada Building B181",635518619,133.1,false,false
+B182,LP182,17.692092,83.163198,2,6.4,Independent House,"Duvvada Building B182",635518620,105.1,false,false
+B183,LP183,17.69226,83.163395,2,6.4,Independent House,"Duvvada Building B183",635518621,160.5,false,false
+B184,LP184,17.692112,83.163355,5,16,Apartment,"Duvvada Building B184",635518622,209.7,false,false
+B185,LP185,17.693294,83.163228,5,16,Apartment,"Duvvada Building B185",635518623,226.1,false,false
+B186,LP186,17.693262,83.163375,5,16,Apartment,"Duvvada Building B186",635518624,199.4,false,false
+B187,LP187,17.693189,83.16384,5,16,Apartment,"Duvvada Building B187",635518625,282.6,false,false
+B188,LP188,17.69331,83.16369,5,16,Apartment,"Duvvada Building B188",635518626,365.3,false,false
+B189,LP189,17.692981,83.163557,5,16,Apartment,"Duvvada Building B189",635518627,239.5,false,false
+B190,LP190,17.692814,83.163566,2,6.4,Independent House,"Duvvada Building B190",635518628,153.1,false,false
+B191,LP191,17.692838,83.163471,2,6.4,Independent House,"Duvvada Building B191",635518629,153,false,false
+B192,LP192,17.692891,83.16388,2,6.4,Independent House,"Duvvada Building B192",635518630,119.4,false,false
+B193,LP193,17.692908,83.16379,2,6.4,Independent House,"Duvvada Building B193",635518631,119.4,false,false
+B194,LP194,17.691718,83.164352,5,16,Apartment,"Duvvada Building B194",635518632,272.5,false,false
+B195,LP195,17.691709,83.164537,2,6.4,Independent House,"Duvvada Building B195",635518633,152.5,false,false
+B196,LP196,17.69198,83.164644,2,6.4,Independent House,"Duvvada Building B196",635518634,143.4,false,false
+B197,LP197,17.691887,83.164451,5,16,Apartment,"Duvvada Building B197",635518636,203.6,false,false
+B198,LP198,17.692045,83.163604,2,6.4,Independent House,"Duvvada Building B198",635518638,158.3,false,false
+B199,LP199,17.692019,83.163717,2,6.4,Independent House,"Duvvada Building B199",635518640,162.5,false,false
+B200,LP200,17.691966,83.163911,2,6.4,Independent House,"Duvvada Building B200",635518642,93.6,false,false
+B201,LP201,17.692161,83.163831,5,16,Apartment,"Duvvada Building B201",635518644,223.7,false,false
+B202,LP202,17.692091,83.164106,4,12.8,Commercial,"Duvvada Building B202",635518646,439.8,false,false
+B203,LP203,17.692297,83.165096,2,6.4,Independent House,"Duvvada Building B203",635518647,144.7,false,false
+B204,LP204,17.692191,83.16507,2,6.4,Independent House,"Duvvada Building B204",635518649,144.8,false,false
+B205,LP205,17.692421,83.16482,2,6.4,Independent House,"Duvvada Building B205",635518651,83.3,false,false
+B206,LP206,17.692355,83.164805,2,6.4,Independent House,"Duvvada Building B206",635518653,83.4,false,false
+B207,LP207,17.692289,83.164789,2,6.4,Independent House,"Duvvada Building B207",635518655,83.3,false,false
+B208,LP208,17.692223,83.164774,2,6.4,Independent House,"Duvvada Building B208",635518657,83.4,false,false
+B209,LP209,17.692482,83.164639,2,6.4,Independent House,"Duvvada Building B209",635518659,166.6,false,false
+B210,LP210,17.692408,83.16462,2,6.4,Independent House,"Duvvada Building B210",635518661,166.5,false,false
+B211,LP211,17.692333,83.164601,2,6.4,Independent House,"Duvvada Building B211",635518663,166.6,false,false
+B212,LP212,17.692258,83.164582,2,6.4,Independent House,"Duvvada Building B212",635518665,166.5,false,false
+B213,LP213,17.692425,83.164042,5,16,Apartment,"Duvvada Building B213",635518667,216.1,false,false
+B214,LP214,17.692444,83.163962,5,16,Apartment,"Duvvada Building B214",635518669,216.3,false,false
+B215,LP215,17.692463,83.163881,5,16,Apartment,"Duvvada Building B215",635518671,216.1,false,false
+B216,LP216,17.697707,83.159608,5,16,Apartment,"Duvvada Building B216",635521548,269.1,false,false
+B217,LP217,17.69783,83.159386,5,16,Apartment,"Duvvada Building B217",635521549,348.8,false,false
+B218,LP218,17.697866,83.159661,5,16,Apartment,"Duvvada Building B218",635521550,209.9,false,false
+B219,LP219,17.698032,83.160021,5,16,Apartment,"Duvvada Building B219",635521551,317.9,false,false
+B220,LP220,17.697861,83.159964,5,16,Apartment,"Duvvada Building B220",635521552,223.4,false,false
+B221,LP221,17.697825,83.160712,5,16,Apartment,"Duvvada Building B221",635521553,282.2,false,false
+B222,LP222,17.697406,83.160423,4,12.8,Commercial,"Duvvada Building B222",635521554,426.5,false,false
+B223,LP223,17.697342,83.16099,2,6.4,Independent House,"Duvvada Building B223",635521555,101.7,false,false
+B224,LP224,17.697466,83.161076,5,16,Apartment,"Duvvada Building B224",635521556,214.2,false,false
+B225,LP225,17.697283,83.161096,2,6.4,Independent House,"Duvvada Building B225",635521557,123.7,false,false
+B226,LP226,17.689929,83.166193,4,12.8,Commercial,"Duvvada Building B226",647927762,499.8,false,false
+B227,LP227,17.690016,83.165793,2,6.4,Independent House,"Duvvada Building B227",647927767,137.8,false,false
+B228,LP228,17.690258,83.165851,5,16,Apartment,"Duvvada Building B228",647927768,249,false,false
+B229,LP229,17.690517,83.165434,5,16,Apartment,"Duvvada Building B229",647927769,384.8,false,false
+B230,LP230,17.690175,83.164865,5,16,Apartment,"Duvvada Building B230",647927770,258.3,false,false
+B231,LP231,17.690069,83.165554,5,16,Apartment,"Duvvada Building B231",647927771,247.7,false,false
+B232,LP232,17.689955,83.165388,2,6.4,Independent House,"Duvvada Building B232",647927772,131.5,false,false
+B233,LP233,17.690087,83.165391,2,6.4,Independent House,"Duvvada Building B233",647927773,102.9,false,false
+B234,LP234,17.690034,83.165084,2,6.4,Independent House,"Duvvada Building B234",647927774,169.4,false,false
+B235,LP235,17.690068,83.164971,2,6.4,Independent House,"Duvvada Building B235",647927775,141.3,false,false
+B236,LP236,17.690258,83.165436,2,6.4,Independent House,"Duvvada Building B236",647927776,148.4,false,false
+B237,LP237,17.690413,83.164951,2,6.4,Independent House,"Duvvada Building B237",647927777,137.6,false,false
+B238,LP238,17.690667,83.164777,5,16,Apartment,"Duvvada Building B238",647927778,208.8,false,false
+B239,LP239,17.690355,83.16461,2,6.4,Independent House,"Duvvada Building B239",647927779,147.1,false,false
+B240,LP240,17.69021,83.164576,2,6.4,Independent House,"Duvvada Building B240",647927780,136.9,false,false
+B241,LP241,17.690341,83.164451,5,16,Apartment,"Duvvada Building B241",647927781,319.1,false,false
+B242,LP242,17.690281,83.164104,2,6.4,Independent House,"Duvvada Building B242",647927782,141.7,false,false
+B243,LP243,17.690509,83.163601,4,12.8,Commercial,"Duvvada Building B243",647927783,685.5,false,false
+B244,LP244,17.689996,83.163778,4,12.8,Commercial,"Duvvada Building B244",647927784,529.9,false,false
+B245,LP245,17.690073,83.163467,4,12.8,Commercial,"Duvvada Building B245",647927785,440.4,false,false
+B246,LP246,17.690143,83.163198,2,6.4,Independent House,"Duvvada Building B246",647927786,179.8,false,false
+B247,LP247,17.690183,83.163032,5,16,Apartment,"Duvvada Building B247",647927787,227.8,false,false
+B248,LP248,17.689899,83.163136,5,16,Apartment,"Duvvada Building B248",647927789,353.7,false,false
+B249,LP249,17.702268,83.16326,4,12.8,Commercial,"Gloria Vidyakendram",942547955,2802.8,false,false
+B250,LP250,17.702604,83.162769,5,16,Apartment,"Maa Sai Towers",942548271,250.5,false,false
+B251,LP251,17.696568,83.152013,2,6.4,Independent House,"Duvvada Building B251",1156967994,139.1,false,false
+B252,LP252,17.694111,83.155736,2,6.4,Independent House,"Duvvada Building B252",1255211402,78.1,false,false
+B253,LP253,17.710714,83.149606,2,6.4,Independent House,"Duvvada Building B253",1255211630,42.2,false,false
+B254,LP254,17.690755,83.15904,2,6.4,Independent House,"Duvvada Building B254",1355590981,160.6,false,false
+B255,LP255,17.692256,83.156956,5,16,Apartment,"Duvvada Building B255",1355590982,277.9,false,false
+B256,LP256,17.692773,83.15779,5,16,Apartment,"Duvvada Building B256",1355590983,360.9,false,false
+B257,LP257,17.693236,83.15828,4,12.8,Commercial,"Duvvada Building B257",1355590984,956.7,false,false
+B258,LP258,17.693471,83.15805,5,16,Apartment,"Duvvada Building B258",1355590985,255.7,false,false
+B259,LP259,17.693177,83.157953,5,16,Apartment,"Duvvada Building B259",1355590986,244.4,false,false
+B260,LP260,17.693396,83.157789,4,12.8,Commercial,"Duvvada Building B260",1355590987,820.2,false,false
+B261,LP261,17.697574,83.158874,5,16,Apartment,"Duvvada Building B261",1355590989,382.5,false,false
+B262,LP262,17.704375,83.163264,2,6.4,Independent House,"Duvvada Building B262",1355590991,163.6,false,false
+B263,LP263,17.698798,83.170365,4,12.8,Commercial,"Duvvada Building B263",1355590994,8444,false,false
+B264,LP264,17.703752,83.168429,5,16,Apartment,"Duvvada Building B264",1355590996,236.1,false,false
+B265,LP265,17.703538,83.16888,5,16,Apartment,"Duvvada Building B265",1355590997,358.5,false,false
+B266,LP266,17.703648,83.168644,5,16,Apartment,"Duvvada Building B266",1355590998,341.6,false,false
+B267,LP267,17.704521,83.168698,5,16,Apartment,"Duvvada Building B267",1355590999,325.7,false,false
+B268,LP268,17.704037,83.168532,5,16,Apartment,"Duvvada Building B268",1355591000,361.6,false,false
+B269,LP269,17.703909,83.168788,4,12.8,Commercial,"Duvvada Building B269",1355591001,410.9,false,false
+B270,LP270,17.703787,83.169066,4,12.8,Commercial,"Duvvada Building B270",1355591002,410.9,false,false
+B271,LP271,17.704437,83.16893,5,16,Apartment,"Duvvada Building B271",1355591003,325.7,false,false
+B272,LP272,17.703895,83.169574,5,16,Apartment,"Duvvada Building B272",1355591004,222.2,false,false
+B273,LP273,17.70395,83.1694,5,16,Apartment,"Duvvada Building B273",1355591005,235.1,false,false
+B274,LP274,17.704191,83.168896,4,12.8,Commercial,"Duvvada Building B274",1355591006,407.9,false,false
+B275,LP275,17.70406,83.169173,4,12.8,Commercial,"Duvvada Building B275",1355591007,407.7,false,false
+B276,LP276,17.703046,83.165088,4,12.8,Commercial,"Duvvada Building B276",1355591008,498.2,false,false
+B277,LP277,17.704223,83.16413,2,6.4,Independent House,"Duvvada Building B277",1355591009,164.1,false,false
+B278,LP278,17.702992,83.165663,5,16,Apartment,"Duvvada Building B278",1355591011,348.1,false,false
+B279,LP279,17.703405,83.163643,5,16,Apartment,"Duvvada Building B279",1355591012,265.8,false,false
+B280,LP280,17.702096,83.160024,5,16,Apartment,"Duvvada Building B280",1355591013,237.8,false,false
+B281,LP281,17.701119,83.160352,5,16,Apartment,"Duvvada Building B281",1355591014,293.5,false,false
+B282,LP282,17.700688,83.161415,4,12.8,Commercial,"Duvvada Building B282",1355591015,892.5,false,false
+B283,LP283,17.699326,83.160554,2,6.4,Independent House,"Duvvada Building B283",1355591016,139.9,false,false
+B284,LP284,17.698965,83.160271,5,16,Apartment,"Duvvada Building B284",1355591017,228.3,false,false
+B285,LP285,17.695976,83.160703,5,16,Apartment,"Duvvada Building B285",1355591018,180.2,false,false
+B286,LP286,17.695932,83.158737,5,16,Apartment,"Duvvada Building B286",1355591019,255.2,false,false
+B287,LP287,17.696375,83.158344,5,16,Apartment,"Duvvada Building B287",1355591020,375.3,false,false
+B288,LP288,17.698168,83.159708,5,16,Apartment,"Duvvada Building B288",1355591021,225.6,false,false
+B289,LP289,17.699501,83.158402,4,12.8,Commercial,"Duvvada Building B289",1355591022,627.7,false,false
+B290,LP290,17.699362,83.157861,5,16,Apartment,"Duvvada Building B290",1355591023,188.5,false,false
+B291,LP291,17.69896,83.158211,4,12.8,Commercial,"Duvvada Building B291",1355591024,593.7,false,false
+B292,LP292,17.704208,83.160709,5,16,Apartment,"Duvvada Building B292",1355591025,228,false,false
+B293,LP293,17.704126,83.160152,5,16,Apartment,"Duvvada Building B293",1355591026,339,false,false
+B294,LP294,17.703762,83.1603,5,16,Apartment,"Duvvada Building B294",1355591027,230.6,false,false
+B295,LP295,17.703261,83.160652,5,16,Apartment,"Duvvada Building B295",1355591028,214.3,false,false
+B296,LP296,17.7026,83.161452,5,16,Apartment,"Duvvada Building B296",1355591029,362.5,false,false
+B297,LP297,17.70169,83.160665,5,16,Apartment,"Duvvada Building B297",1355591030,395.3,false,false
+B298,LP298,17.69802,83.164013,2,6.4,Independent House,"Duvvada Building B298",1355591031,160,false,false
+B299,LP299,17.698253,83.16438,2,6.4,Independent House,"Duvvada Building B299",1355591032,176.9,false,false
+B300,LP300,17.698149,83.164341,2,6.4,Independent House,"Duvvada Building B300",1355591033,176.7,false,false
+B301,LP301,17.698174,83.16455,2,6.4,Independent House,"Duvvada Building B301",1355591034,145.6,false,false
+B302,LP302,17.698343,83.164609,5,16,Apartment,"Duvvada Building B302",1355591035,235,false,false
+B303,LP303,17.698689,83.164538,4,12.8,Commercial,"Duvvada Building B303",1355591036,405.3,false,false
+B304,LP304,17.698404,83.165074,5,16,Apartment,"Duvvada Building B304",1355591037,340.3,false,false
+B305,LP305,17.698167,83.164971,5,16,Apartment,"Duvvada Building B305",1355591038,343.8,false,false
+B306,LP306,17.698198,83.164093,5,16,Apartment,"Duvvada Building B306",1355591039,197.6,false,false
+B307,LP307,17.696481,83.163412,2,6.4,Independent House,"Duvvada Building B307",1355591040,174.4,false,false
+B308,LP308,17.696753,83.162893,4,12.8,Commercial,"Duvvada Building B308",1355591041,423.5,false,false
+B309,LP309,17.697115,83.161976,5,16,Apartment,"Duvvada Building B309",1355591042,273.5,false,false
+B310,LP310,17.700461,83.163899,5,16,Apartment,"Duvvada Building B310",1355591043,261.5,false,false
+B311,LP311,17.700938,83.163616,4,12.8,Commercial,"Duvvada Building B311",1355591044,455.1,false,false
+B312,LP312,17.701485,83.163056,5,16,Apartment,"Duvvada Building B312",1355591045,198.5,false,false
+B313,LP313,17.701372,83.163163,5,16,Apartment,"Duvvada Building B313",1355591046,198.5,false,false
+B314,LP314,17.699425,83.164949,5,16,Apartment,"Duvvada Building B314",1355591061,353.9,false,false
+B315,LP315,17.69964,83.165033,5,16,Apartment,"Duvvada Building B315",1355591062,377.5,false,false
+B316,LP316,17.69966,83.164731,4,12.8,Commercial,"Duvvada Building B316",1355591063,1244.5,false,false
+B317,LP317,17.708894,83.157548,5,16,Apartment,"Duvvada Building B317",1355591074,357.2,false,false
+B318,LP318,17.709186,83.157566,5,16,Apartment,"Duvvada Building B318",1355591075,205.5,false,false
+B319,LP319,17.709108,83.157758,5,16,Apartment,"Duvvada Building B319",1355591076,242.4,false,false
+B320,LP320,17.709353,83.158253,5,16,Apartment,"Duvvada Building B320",1355591077,399.1,false,false
+B321,LP321,17.709071,83.158041,4,12.8,Commercial,"Duvvada Building B321",1355591078,936.2,false,false
+B322,LP322,17.709409,83.15786,4,12.8,Commercial,"Duvvada Building B322",1355591079,3544.8,false,false
+B323,LP323,17.709575,83.156644,4,12.8,Commercial,"Duvvada Building B323",1355591080,10983.6,false,false
+B324,LP324,17.709921,83.154877,4,12.8,Commercial,"Duvvada Building B324",1355591081,1818.9,false,false
+B325,LP325,17.708326,83.152659,4,12.8,Commercial,"Duvvada Building B325",1355591082,1182.1,false,false
+B326,LP326,17.708816,83.152171,4,12.8,Commercial,"Duvvada Building B326",1355591083,5539.7,false,false
+B327,LP327,17.707491,83.151697,4,12.8,Commercial,"Duvvada Building B327",1355591084,5542.1,false,false
+B328,LP328,17.709851,83.162086,4,12.8,Commercial,"Duvvada Building B328",1355591085,883.6,false,false
+B329,LP329,17.711332,83.162532,4,12.8,Commercial,"Duvvada Building B329",1355591086,957.8,false,false
+B330,LP330,17.713677,83.164264,4,12.8,Commercial,"Duvvada Building B330",1355591087,3582.5,false,false
+B331,LP331,17.712862,83.164253,4,12.8,Commercial,"Duvvada Building B331",1355591088,1294.2,false,false
+B332,LP332,17.710913,83.163906,4,12.8,Commercial,"Duvvada Building B332",1355591096,1491.1,false,false
+B333,LP333,17.702679,83.135881,4,12.8,Commercial,"Duvvada Building B333",1502459922,424.6,false,false
+B334,LP334,17.702687,83.136068,4,12.8,Commercial,"Duvvada Building B334",1502459923,424.6,false,false
+B335,LP335,17.702705,83.136859,4,12.8,Commercial,"Duvvada Building B335",1502459924,424.5,false,false
+B336,LP336,17.702709,83.137051,4,12.8,Commercial,"Duvvada Building B336",1502459925,424.6,false,false
+B337,LP337,17.702723,83.137359,4,12.8,Commercial,"Duvvada Building B337",1502459926,424.4,false,false
+B338,LP338,17.702724,83.137549,4,12.8,Commercial,"Duvvada Building B338",1502459927,424.6,false,false
+B339,LP339,17.702693,83.13637,5,16,Apartment,"Duvvada Building B339",1502459928,332.3,false,false
+B340,LP340,17.702703,83.136529,5,16,Apartment,"Duvvada Building B340",1502459929,332,false,false
+B341,LP341,17.702705,83.136687,5,16,Apartment,"Duvvada Building B341",1502459930,332.3,false,false
+B342,LP342,17.703137,83.135674,4,12.8,Commercial,"Duvvada Building B342",1502459931,506.8,false,false
+B343,LP343,17.703146,83.135865,4,12.8,Commercial,"Duvvada Building B343",1502459932,506.6,false,false
+B344,LP344,17.703154,83.136061,4,12.8,Commercial,"Duvvada Building B344",1502459933,506.8,false,false
+B345,LP345,17.703536,83.135465,4,12.8,Commercial,"Duvvada Building B345",1502459934,506.9,false,false
+B346,LP346,17.703553,83.135658,4,12.8,Commercial,"Duvvada Building B346",1502459935,506.6,false,false
+B347,LP347,17.703558,83.135853,4,12.8,Commercial,"Duvvada Building B347",1502459936,506.4,false,false
+B348,LP348,17.703569,83.13605,4,12.8,Commercial,"Duvvada Building B348",1502459937,506.6,false,false
+B349,LP349,17.703572,83.136436,4,12.8,Commercial,"Duvvada Building B349",1502459938,506.6,false,false
+B350,LP350,17.703583,83.136631,4,12.8,Commercial,"Duvvada Building B350",1502459939,506.4,false,false
+B351,LP351,17.703587,83.136825,4,12.8,Commercial,"Duvvada Building B351",1502459940,506.6,false,false
+B352,LP352,17.703594,83.13702,4,12.8,Commercial,"Duvvada Building B352",1502459941,506.9,false,false
+B353,LP353,17.703167,83.13646,4,12.8,Commercial,"Duvvada Building B353",1502459942,506.6,false,false
+B354,LP354,17.703169,83.136649,4,12.8,Commercial,"Duvvada Building B354",1502459943,506.6,false,false
+B355,LP355,17.703173,83.136842,4,12.8,Commercial,"Duvvada Building B355",1502459944,506.6,false,false
+B356,LP356,17.703178,83.137037,4,12.8,Commercial,"Duvvada Building B356",1502459945,506.5,false,false
+B357,LP357,17.703608,83.137326,4,12.8,Commercial,"Duvvada Building B357",1502459946,506.5,false,false
+B358,LP358,17.703614,83.137527,4,12.8,Commercial,"Duvvada Building B358",1502459947,506.8,false,false
+B359,LP359,17.703618,83.137721,4,12.8,Commercial,"Duvvada Building B359",1502459948,506.4,false,false
+B360,LP360,17.70363,83.137908,4,12.8,Commercial,"Duvvada Building B360",1502459949,506.6,false,false
+B361,LP361,17.703206,83.137923,4,12.8,Commercial,"Duvvada Building B361",1502459950,506.9,false,false
+B362,LP362,17.704466,83.135627,4,12.8,Commercial,"Duvvada Building B362",1502459951,506.4,false,false
+B363,LP363,17.70447,83.135826,4,12.8,Commercial,"Duvvada Building B363",1502459952,506.4,false,false
+B364,LP364,17.704474,83.136017,4,12.8,Commercial,"Duvvada Building B364",1502459953,506.4,false,false
+B365,LP365,17.704052,83.135641,4,12.8,Commercial,"Duvvada Building B365",1502459954,506.6,false,false
+B366,LP366,17.704058,83.135835,4,12.8,Commercial,"Duvvada Building B366",1502459955,506.4,false,false
+B367,LP367,17.704073,83.136031,4,12.8,Commercial,"Duvvada Building B367",1502459956,506.6,false,false
+B368,LP368,17.704071,83.136422,4,12.8,Commercial,"Duvvada Building B368",1502459957,506.4,false,false
+B369,LP369,17.704078,83.136617,4,12.8,Commercial,"Duvvada Building B369",1502459958,506.6,false,false
+B370,LP370,17.704082,83.136812,4,12.8,Commercial,"Duvvada Building B370",1502459959,506.4,false,false
+B371,LP371,17.70409,83.137008,4,12.8,Commercial,"Duvvada Building B371",1502459960,506.6,false,false
+B372,LP372,17.704076,83.137314,4,12.8,Commercial,"Duvvada Building B372",1502459961,451.5,false,false
+B373,LP373,17.704969,83.135992,4,12.8,Commercial,"Duvvada Building B373",1502459962,506.4,false,false
+B374,LP374,17.704966,83.135804,4,12.8,Commercial,"Duvvada Building B374",1502459963,506.6,false,false
+B375,LP375,17.704962,83.135613,4,12.8,Commercial,"Duvvada Building B375",1502459964,506.4,false,false
+B376,LP376,17.705035,83.135341,4,12.8,Commercial,"Duvvada Building B376",1502459965,506.4,false,false
+B377,LP377,17.705094,83.135149,4,12.8,Commercial,"Duvvada Building B377",1502459966,506.6,false,false
+B378,LP378,17.705146,83.134955,4,12.8,Commercial,"Duvvada Building B378",1502459967,506.4,false,false
+B379,LP379,17.709192,83.137432,2,6.4,Independent House,"Duvvada Building B379",1502459997,27.3,false,false
+B380,LP380,17.70915,83.137472,2,6.4,Independent House,"Duvvada Building B380",1502459998,27.3,false,false
+B381,LP381,17.709107,83.137511,2,6.4,Independent House,"Duvvada Building B381",1502459999,27.3,false,false
+B382,LP382,17.709066,83.137551,2,6.4,Independent House,"Duvvada Building B382",1502460000,27.3,false,false
+B383,LP383,17.709029,83.137508,2,6.4,Independent House,"Duvvada Building B383",1502460001,27.3,false,false
+B384,LP384,17.709071,83.137472,2,6.4,Independent House,"Duvvada Building B384",1502460002,27.3,false,false
+B385,LP385,17.709113,83.137433,2,6.4,Independent House,"Duvvada Building B385",1502460003,27.3,false,false
+B386,LP386,17.709154,83.137393,2,6.4,Independent House,"Duvvada Building B386",1502460004,27.3,false,false
+B387,LP387,17.708903,83.137455,2,6.4,Independent House,"Duvvada Building B387",1502460005,27.3,false,false
+B388,LP388,17.708866,83.137415,2,6.4,Independent House,"Duvvada Building B388",1502460006,27.3,false,false
+B389,LP389,17.708948,83.137336,2,6.4,Independent House,"Duvvada Building B389",1502460007,27.3,false,false
+B390,LP390,17.708944,83.137417,2,6.4,Independent House,"Duvvada Building B390",1502460008,27.3,false,false
+B391,LP391,17.708987,83.137376,2,6.4,Independent House,"Duvvada Building B391",1502460009,27.3,false,false
+B392,LP392,17.709029,83.137337,2,6.4,Independent House,"Duvvada Building B392",1502460010,27.3,false,false
+B393,LP393,17.70895,83.137168,2,6.4,Independent House,"Duvvada Building B393",1502460011,27.3,false,false
+B394,LP394,17.708907,83.137207,2,6.4,Independent House,"Duvvada Building B394",1502460012,27.3,false,false
+B395,LP395,17.708864,83.137245,2,6.4,Independent House,"Duvvada Building B395",1502460013,27.3,false,false
+B396,LP396,17.708823,83.137284,2,6.4,Independent House,"Duvvada Building B396",1502460014,27.3,false,false
+B397,LP397,17.70878,83.137325,2,6.4,Independent House,"Duvvada Building B397",1502460015,27.3,false,false
+B398,LP398,17.708782,83.137247,2,6.4,Independent House,"Duvvada Building B398",1502460016,27.3,false,false
+B399,LP399,17.708825,83.137204,2,6.4,Independent House,"Duvvada Building B399",1502460017,27.3,false,false
+B400,LP400,17.70887,83.137166,2,6.4,Independent House,"Duvvada Building B400",1502460018,27.3,false,false
+B401,LP401,17.708665,83.137192,2,6.4,Independent House,"Duvvada Building B401",1502460019,27.3,false,false
+B402,LP402,17.708704,83.137154,2,6.4,Independent House,"Duvvada Building B402",1502460020,27.3,false,false
+B403,LP403,17.708745,83.137112,2,6.4,Independent House,"Duvvada Building B403",1502460021,27.3,false,false
+B404,LP404,17.708788,83.13707,2,6.4,Independent House,"Duvvada Building B404",1502460022,27.3,false,false
+B405,LP405,17.708789,83.136992,2,6.4,Independent House,"Duvvada Building B405",1502460023,27.3,false,false
+B406,LP406,17.708708,83.137068,2,6.4,Independent House,"Duvvada Building B406",1502460024,27.3,false,false
+B407,LP407,17.708666,83.137109,2,6.4,Independent House,"Duvvada Building B407",1502460025,27.3,false,false
+B408,LP408,17.708624,83.13715,2,6.4,Independent House,"Duvvada Building B408",1502460026,27.3,false,false
+B409,LP409,17.708544,83.137056,2,6.4,Independent House,"Duvvada Building B409",1502460027,27.3,false,false
+B410,LP410,17.708588,83.137017,2,6.4,Independent House,"Duvvada Building B410",1502460028,27.3,false,false
+B411,LP411,17.708628,83.136977,2,6.4,Independent House,"Duvvada Building B411",1502460029,27.3,false,false
+B412,LP412,17.708669,83.136936,2,6.4,Independent House,"Duvvada Building B412",1502460030,27.3,false,false
+B413,LP413,17.708594,83.136729,2,6.4,Independent House,"Duvvada Building B413",1502460031,27.3,false,false
+B414,LP414,17.708553,83.136767,2,6.4,Independent House,"Duvvada Building B414",1502460032,27.3,false,false
+B415,LP415,17.708514,83.136807,2,6.4,Independent House,"Duvvada Building B415",1502460033,27.3,false,false
+B416,LP416,17.708472,83.136845,2,6.4,Independent House,"Duvvada Building B416",1502460034,27.3,false,false
+B417,LP417,17.708431,83.136884,2,6.4,Independent House,"Duvvada Building B417",1502460035,27.3,false,false
+B418,LP418,17.708181,83.135577,5,16,Apartment,"Duvvada Building B418",1502460036,224.5,false,false
+B419,LP419,17.708096,83.13572,5,16,Apartment,"Duvvada Building B419",1502460037,224.7,false,false
+B420,LP420,17.708012,83.135865,5,16,Apartment,"Duvvada Building B420",1502460038,224.5,false,false
+B421,LP421,17.707913,83.136016,5,16,Apartment,"Duvvada Building B421",1502460039,332.4,false,false
+B422,LP422,17.707526,83.135786,5,16,Apartment,"Duvvada Building B422",1502460040,332.3,false,false
+B423,LP423,17.707618,83.135616,5,16,Apartment,"Duvvada Building B423",1502460041,332.4,false,false
+B424,LP424,17.707388,83.135481,5,16,Apartment,"Duvvada Building B424",1502460042,332.3,false,false
+B425,LP425,17.707292,83.135653,5,16,Apartment,"Duvvada Building B425",1502460043,332.2,false,false
+B426,LP426,17.707236,83.135034,5,16,Apartment,"Duvvada Building B426",1502460044,332.4,false,false
+B427,LP427,17.706988,83.134888,5,16,Apartment,"Duvvada Building B427",1502460045,332.3,false,false
+B428,LP428,17.706306,83.134921,5,16,Apartment,"Duvvada Building B428",1502460047,208.7,false,false
+B429,LP429,17.706566,83.135856,5,16,Apartment,"Duvvada Building B429",1502460054,240.5,false,false
+B430,LP430,17.706423,83.136098,5,16,Apartment,"Duvvada Building B430",1502460055,240.6,false,false
+B431,LP431,17.706288,83.136346,5,16,Apartment,"Duvvada Building B431",1502460056,240.2,false,false
+B432,LP432,17.706151,83.136597,5,16,Apartment,"Duvvada Building B432",1502460057,240.4,false,false
+B433,LP433,17.706628,83.136223,5,16,Apartment,"Duvvada Building B433",1502460058,240.3,false,false
+B434,LP434,17.706495,83.136467,5,16,Apartment,"Duvvada Building B434",1502460059,240.6,false,false
+B435,LP435,17.706352,83.136722,5,16,Apartment,"Duvvada Building B435",1502460060,240.3,false,false
+B436,LP436,17.707036,83.135318,5,16,Apartment,"Duvvada Building B436",1502460061,261.5,false,false
+B437,LP437,17.706951,83.135468,5,16,Apartment,"Duvvada Building B437",1502460062,261.6,false,false
+B438,LP438,17.707483,83.136128,5,16,Apartment,"Duvvada Building B438",1502460063,235.7,false,false
+B439,LP439,17.707416,83.136245,5,16,Apartment,"Duvvada Building B439",1502460064,235.6,false,false
+B440,LP440,17.707217,83.135969,5,16,Apartment,"Duvvada Building B440",1502460065,235.8,false,false
+B441,LP441,17.707155,83.136094,5,16,Apartment,"Duvvada Building B441",1502460066,235.6,false,false
+B442,LP442,17.706978,83.135829,5,16,Apartment,"Duvvada Building B442",1502460067,235.7,false,false
+B443,LP443,17.706907,83.135948,5,16,Apartment,"Duvvada Building B443",1502460068,235.7,false,false
+B444,LP444,17.705253,83.136837,5,16,Apartment,"Duvvada Building B444",1502460069,235.7,false,false
+B445,LP445,17.705181,83.136959,5,16,Apartment,"Duvvada Building B445",1502460070,235.8,false,false
+B446,LP446,17.705009,83.136688,5,16,Apartment,"Duvvada Building B446",1502460071,235.6,false,false
+B447,LP447,17.704949,83.136813,5,16,Apartment,"Duvvada Building B447",1502460072,235.8,false,false
+B448,LP448,17.704996,83.137302,5,16,Apartment,"Duvvada Building B448",1502460073,235.6,false,false
+B449,LP449,17.704764,83.137156,5,16,Apartment,"Duvvada Building B449",1502460074,235.7,false,false
+B450,LP450,17.704823,83.137032,5,16,Apartment,"Duvvada Building B450",1502460075,235.7,false,false
+B451,LP451,17.705067,83.137181,5,16,Apartment,"Duvvada Building B451",1502460076,235.7,false,false
+B452,LP452,17.704782,83.137641,5,16,Apartment,"Duvvada Building B452",1502460077,235.7,false,false
+B453,LP453,17.70455,83.137495,5,16,Apartment,"Duvvada Building B453",1502460078,235.7,false,false
+B454,LP454,17.70461,83.137371,5,16,Apartment,"Duvvada Building B454",1502460079,235.9,false,false
+B455,LP455,17.704854,83.13752,5,16,Apartment,"Duvvada Building B455",1502460080,235.7,false,false
+B456,LP456,17.704594,83.137984,5,16,Apartment,"Duvvada Building B456",1502460081,235.6,false,false
+B457,LP457,17.704362,83.137838,5,16,Apartment,"Duvvada Building B457",1502460082,235.6,false,false
+B458,LP458,17.704422,83.137714,5,16,Apartment,"Duvvada Building B458",1502460083,235.7,false,false
+B459,LP459,17.704666,83.137863,5,16,Apartment,"Duvvada Building B459",1502460084,235.7,false,false
+B460,LP460,17.704406,83.138324,5,16,Apartment,"Duvvada Building B460",1502460085,235.8,false,false
+B461,LP461,17.704174,83.138178,5,16,Apartment,"Duvvada Building B461",1502460086,235.8,false,false
+B462,LP462,17.704233,83.138054,5,16,Apartment,"Duvvada Building B462",1502460087,235.7,false,false
+B463,LP463,17.704478,83.138203,5,16,Apartment,"Duvvada Building B463",1502460088,235.7,false,false
+B464,LP464,17.708721,83.149412,3,9.600000000000001,Residential,"Duvvada Building B464",1556405988,29.5,false,false

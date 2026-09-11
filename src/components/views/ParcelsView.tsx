@@ -51,7 +51,7 @@ export const ParcelsView: React.FC<ParcelsViewProps> = ({
             </span>
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            2D and 3D land parcels surveyed across Kadapa urban cadastral grid, Andhra Pradesh
+            2D parcel setback architecture for Duvvada, Visakhapatnam (AP Meebhoomi vector API restricted)
           </p>
         </div>
 

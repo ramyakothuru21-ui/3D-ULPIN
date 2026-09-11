@@ -36,21 +36,21 @@ export const DemoTourModal: React.FC<DemoTourModalProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
 
-  // Notable high-density mixed use parcel
-  const demoParcel = parcels.find(p => p.Parcel_ID === 'LP014') || parcels[0];
-  const demoBuilding = buildings.find(b => b.Building_ID === 'B014') || buildings[0];
-  const demoProperty = properties.find(u => u.Building_ID === 'B014') || properties[0];
+  // Notable real Duvvada building (KBC Heights on Kurmannapalem Road)
+  const demoParcel = parcels[0];
+  const demoBuilding = buildings[0];
+  const demoProperty = properties.find(u => u.Building_ID === demoBuilding?.Building_ID) || properties[0];
 
   const steps: DemoTourStep[] = [
     {
       step: 1,
-      title: 'Cadastral Overview & Baseline KPIs',
+      title: 'Cadastral Overview & Duvvada Real KPIs',
       badge: 'Step 1 of 6',
-      description: 'Start at the analytical dashboard showcasing dynamically computed KPIs from the 3 CSV datasets.',
+      description: 'Start at the analytical dashboard showcasing real OpenStreetMap geospatial statistics for Duvvada, Visakhapatnam.',
       talkingPoints: [
-        'Point out the 100 Land Parcels, 100 Buildings, and 986 Vertical Titles.',
-        'Emphasize that every statistic is calculated dynamically without hardcoding.',
-        'Highlight the residential (613) and commercial (373) distribution.'
+        'Point out the 464 real OpenStreetMap buildings, 1,241 road & rail segments, and 12+ landmarks in Duvvada.',
+        'Emphasize that building footprints, area, and coordinates are real public data (ODbL).',
+        'Explain the distinction between real geospatial vectors and simulated 3D vertical titles.'
       ],
       action: () => {
         onNavigateTab('overview');
@@ -58,29 +58,29 @@ export const DemoTourModal: React.FC<DemoTourModalProps> = ({
     },
     {
       step: 2,
-      title: 'Interactive 3D GIS Map & Parcel Selection',
+      title: 'Interactive 3D GIS Map & Duvvada Footprints',
       badge: 'Step 2 of 6',
-      description: 'Navigate to the live GIS map, toggle 3D building extrusions, and zoom to Parcel LP014.',
+      description: 'Navigate to the live GIS map, toggle satellite imagery, and inspect real Duvvada building footprints.',
       talkingPoints: [
-        'Show the MapLibre GL 3D perspective pitch tilt.',
-        'Demonstrate basemap switching (Light, Street, and Satellite).',
-        'Select Land Parcel LP014 to reveal its parent cadastral boundary.'
+        'Show real high-resolution Esri satellite imagery matching Duvvada terrain.',
+        'Demonstrate real road networks (Kurmannapalem Road, Duvvada Station Line).',
+        'Select KBC Heights (B001) to reveal its exact architectural footprint on the ground.'
       ],
       action: () => {
         onNavigateTab('map');
         onToggle3D(true);
-        if (demoParcel) onSelectParcel(demoParcel, demoBuilding);
+        if (demoParcel && demoBuilding) onSelectParcel(demoParcel, demoBuilding);
       }
     },
     {
       step: 3,
       title: '3D Building Volumetric Extrusion',
       badge: 'Step 3 of 6',
-      description: 'Inspect Building B014 (8 Floors, 24m Height) situated on Parcel LP014.',
+      description: `Inspect ${demoBuilding?.name || 'Building B001'} (${demoBuilding?.Floors || 5} Floors, ${demoBuilding?.Height_m || 16}m Height) in Duvvada.`,
       talkingPoints: [
-        'Explain how 2D flat parcels fail to capture multi-storey vertical rights.',
-        'Highlight the structural height profile derived directly from buildings.csv.',
-        'Click "3D Exploder" to launch the WebGL digital twin.'
+        'Explain how 2D flat parcels fail to represent multi-level vertical property rights.',
+        'Show real building levels tagged in OpenStreetMap or illustrative height where unrecorded.',
+        'Click "View in 3D" to launch the WebGL digital twin.'
       ],
       action: () => {
         onNavigateTab('map');
@@ -91,11 +91,11 @@ export const DemoTourModal: React.FC<DemoTourModalProps> = ({
       step: 4,
       title: 'The Showstopper: 3D Vertical Unit Exploder',
       badge: 'Step 4 of 6',
-      description: 'Experience the vertical separation of floors into individual apartments, offices, and shops.',
+      description: 'Experience the vertical separation of floors into individual apartments, offices, and rooms.',
       talkingPoints: [
         'Move the "Vertical Explode" slider to separate the building into floating floor slices.',
-        'Click on individual units in 3D to inspect their Prototype 3D-ULPIN (IND-AP-LP014-B014-F08-801).',
-        'Show how each unit has an immutable vertical address.'
+        'Click on individual units in 3D to inspect their Prototype 3D-ULPIN.',
+        'Show BIM room layouts with Living Hall, Master Bedroom, Kitchen & Balcony.'
       ],
       action: () => {
         onNavigateTab('map');

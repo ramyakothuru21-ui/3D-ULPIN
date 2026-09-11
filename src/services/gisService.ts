@@ -1,25 +1,70 @@
 /**
- * Generates realistic GIS polygon coordinates around a center [lat, lon]
- * scaled according to the exact Area_sq_m from the dataset.
+ * Geodesic spatial utilities for Duvvada, Visakhapatnam, Andhra Pradesh
+ * Coordinates: Lat ~17.70°, Lon ~83.15°
+ */
+
+/**
+ * Calculates accurate geodesic surface area in square meters for a geographic polygon
+ * @param coords Array of [lon, lat] coordinates representing a closed ring
+ */
+export function calculatePolygonAreaSqM(coords: [number, number][]): number {
+  if (!coords || coords.length < 3) return 0;
+  const R = 6378137; // Earth's mean radius in meters
+  let area = 0;
+  const n = coords.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    const [lon1, lat1] = coords[i];
+    const [lon2, lat2] = coords[i + 1];
+    const x1 = (lon1 * Math.PI / 180) * Math.cos(((lat1 + lat2) / 2) * Math.PI / 180) * R;
+    const y1 = (lat1 * Math.PI / 180) * R;
+    const x2 = (lon2 * Math.PI / 180) * Math.cos(((lat1 + lat2) / 2) * Math.PI / 180) * R;
+    const y2 = (lat2 * Math.PI / 180) * R;
+    area += (x1 * y2 - x2 * y1);
+  }
+  return Math.round(Math.abs(area / 2) * 10) / 10;
+}
+
+/**
+ * Calculates geographic centroid [lon, lat] of a polygon ring
+ */
+export function calculatePolygonCentroid(coords: [number, number][]): [number, number] {
+  if (!coords || coords.length === 0) return [83.1514, 17.7036];
+  let sumLon = 0;
+  let sumLat = 0;
+  const count = coords.length > 1 && coords[0][0] === coords[coords.length - 1][0] && coords[0][1] === coords[coords.length - 1][1]
+    ? coords.length - 1
+    : coords.length;
+
+  for (let i = 0; i < count; i++) {
+    sumLon += coords[i][0];
+    sumLat += coords[i][1];
+  }
+  return [
+    Math.round((sumLon / count) * 1000000) / 1000000,
+    Math.round((sumLat / count) * 1000000) / 1000000
+  ];
+}
+
+/**
+ * Generates boundary polygon around a center [lat, lon]
+ * Calibrated for Duvvada, Visakhapatnam latitude ~17.70°
  */
 export function generateParcelPolygon(lat: number, lon: number, areaSqM: number, parcelId: string): [number, number][] {
-  // Approximate meters per degree at lat ~14.47 (Kadapa, AP)
-  // 1 deg lat ~ 110,600 m
-  // 1 deg lon ~ 111,320 * cos(14.47 deg) ~ 107,800 m
-  const metersPerDegLat = 110600;
-  const metersPerDegLon = 107800;
+  // Approximate meters per degree at lat ~17.70 (Duvvada, Visakhapatnam)
+  // 1 deg lat ~ 110,650 m
+  // 1 deg lon ~ 111,320 * cos(17.70 deg) ~ 106,000 m
+  const metersPerDegLat = 110650;
+  const metersPerDegLon = 106000;
 
-  // Derive side lengths from areaSqM. E.g. side = sqrt(area)
   const side = Math.sqrt(areaSqM);
-  // Introduce a deterministic variation based on parcelId hash
   const hash = parcelId.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
-  const aspect = 1.0 + ((hash % 5) * 0.1); // 1.0 to 1.4 ratio
-  const rotRad = ((hash % 12) * 5 * Math.PI) / 180; // slight rotation angle
+  const aspect = 1.0 + ((hash % 5) * 0.1);
+  const rotRad = ((hash % 12) * 5 * Math.PI) / 180;
 
   const halfW = (side * Math.sqrt(aspect)) / 2;
   const halfH = (side / Math.sqrt(aspect)) / 2;
 
-  // 4 corners relative to center in meters
   const cornersM = [
     [-halfW, -halfH],
     [halfW, -halfH],
@@ -27,7 +72,6 @@ export function generateParcelPolygon(lat: number, lon: number, areaSqM: number,
     [-halfW, halfH],
   ];
 
-  // Rotate corners
   const cosR = Math.cos(rotRad);
   const sinR = Math.sin(rotRad);
 
@@ -39,20 +83,18 @@ export function generateParcelPolygon(lat: number, lon: number, areaSqM: number,
     return [pLon, pLat];
   });
 
-  // Close the polygon
   coords.push(coords[0]);
   return coords;
 }
 
 /**
- * Generates building footprint inside a parcel polygon (approx 55% coverage)
+ * Generates fallback building footprint
  */
 export function generateBuildingPolygon(lat: number, lon: number, parcelAreaSqM: number, buildingId: string): [number, number][] {
-  const metersPerDegLat = 110600;
-  const metersPerDegLon = 107800;
+  const metersPerDegLat = 110650;
+  const metersPerDegLon = 106000;
 
-  // Building footprint is ~55% of parcel area
-  const bldgArea = parcelAreaSqM * 0.55;
+  const bldgArea = parcelAreaSqM * 0.60;
   const side = Math.sqrt(bldgArea);
   const hash = buildingId.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const aspect = 1.1 + ((hash % 4) * 0.15);
@@ -82,3 +124,4 @@ export function generateBuildingPolygon(lat: number, lon: number, parcelAreaSqM:
   coords.push(coords[0]);
   return coords;
 }
+

@@ -107,8 +107,12 @@ export const BuildingsView: React.FC<BuildingsViewProps> = ({
                     <Building2 className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 text-xs font-mono">{b.Building_ID}</h4>
-                    <span className="text-[10px] text-slate-400 font-mono">Parcel: {b.Parcel_ID}</span>
+                    <h4 className="font-bold text-slate-900 text-xs truncate max-w-[150px]">
+                      {b.name || b.Building_ID}
+                    </h4>
+                    <span className="text-[10px] text-slate-400 font-mono">
+                      {b.Building_ID} {b.osmId ? `• OSM ${b.osmId}` : ''}
+                    </span>
                   </div>
                 </div>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
@@ -119,14 +123,16 @@ export const BuildingsView: React.FC<BuildingsViewProps> = ({
               <div className="grid grid-cols-3 gap-2 text-xs pt-1 border-t border-slate-100 text-center">
                 <div className="p-2 bg-slate-50 rounded-lg">
                   <span className="text-[10px] text-slate-400 block">Floors</span>
-                  <span className="font-bold text-slate-800">{b.Floors}</span>
+                  <span className="font-bold text-slate-800">
+                    {b.hasRealLevels ? `${b.realFloors} (OSM)` : b.Floors}
+                  </span>
                 </div>
                 <div className="p-2 bg-slate-50 rounded-lg">
-                  <span className="text-[10px] text-slate-400 block">Height</span>
-                  <span className="font-bold text-slate-800">{b.Height_m}m</span>
+                  <span className="text-[10px] text-slate-400 block">Area</span>
+                  <span className="font-bold text-slate-800">{b.area_sq_m} m²</span>
                 </div>
                 <div className="p-2 bg-slate-50 rounded-lg">
-                  <span className="text-[10px] text-slate-400 block">Units</span>
+                  <span className="text-[10px] text-slate-400 block">Units (Demo)</span>
                   <span className="font-bold text-cyan-700">{units.length}</span>
                 </div>
               </div>

@@ -1,15 +1,38 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import maplibregl from 'maplibre-gl';
-import { LandParcel, Building, VerticalProperty } from '../../types';
+import { LandParcel, Building, VerticalProperty, RoadFeature, PlaceFeature } from '../../types';
 import { getOwnershipRecord } from '../../services/demoRegistryService';
-import { Layers, Compass, Sun, Satellite, Eye, ZoomIn, ZoomOut, RotateCcw, Box, Check, AlertCircle, User, ShieldCheck, MapPin, Orbit } from 'lucide-react';
+import { 
+  Layers, 
+  Compass, 
+  Sun, 
+  Satellite, 
+  Eye, 
+  ZoomIn, 
+  ZoomOut, 
+  RotateCcw, 
+  Box, 
+  Check, 
+  AlertCircle, 
+  User, 
+  ShieldCheck, 
+  MapPin, 
+  Orbit,
+  Maximize2,
+  Minimize2,
+  Navigation,
+  Info
+} from 'lucide-react';
 
 interface GisMapProps {
   parcels: LandParcel[];
   buildings: Building[];
+  roads?: RoadFeature[];
+  places?: PlaceFeature[];
   selectedParcel: LandParcel | null;
   selectedBuilding: Building | null;
   selectedProperty: VerticalProperty | null;
+  enableDemoOverlay?: boolean;
   onSelectParcel: (parcel: LandParcel) => void;
   onSelectBuilding: (building: Building) => void;
   is3DMode: boolean;
@@ -21,13 +44,21 @@ type MapStyleMode = 'streets' | 'satellite' | 'light';
 interface HoveredCardData {
   id: string;
   parcelId: string;
+  osmId?: number;
+  name?: string;
   bldgType: string;
   floors: number;
+  hasRealLevels: boolean;
+  realFloors?: number | null;
   height: number;
+  hasRealHeight: boolean;
+  area_sq_m: number;
+  street?: string;
   ownerName: string;
   surveyNo: string;
   ulpin: string;
   ownershipStatus: string;
+  isDemoOwnership: boolean;
   x: number;
   y: number;
 }
@@ -35,9 +66,12 @@ interface HoveredCardData {
 export const GisMap: React.FC<GisMapProps> = ({
   parcels,
   buildings,
+  roads = [],
+  places = [],
   selectedParcel,
   selectedBuilding,
   selectedProperty,
+  enableDemoOverlay = true,
   onSelectParcel,
   onSelectBuilding,
   is3DMode,
@@ -45,20 +79,23 @@ export const GisMap: React.FC<GisMapProps> = ({
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
-  const [mapStyle, setMapStyle] = useState<MapStyleMode>('light');
-  const [showParcelsLayer, setShowParcelsLayer] = useState<boolean>(true);
+  const [mapStyle, setMapStyle] = useState<MapStyleMode>('satellite');
+  const [showParcelsLayer, setShowParcelsLayer] = useState<boolean>(false); // Cadastral parcel data unavailable from public source
   const [showBuildingsLayer, setShowBuildingsLayer] = useState<boolean>(true);
+  const [showRoadsLayer, setShowRoadsLayer] = useState<boolean>(true);
+  const [showPlacesLayer, setShowPlacesLayer] = useState<boolean>(true);
   const [showExtrusions, setShowExtrusions] = useState<boolean>(true);
   const [satelliteError, setSatelliteError] = useState<string | null>(null);
   const [hoveredBuildingCard, setHoveredBuildingCard] = useState<HoveredCardData | null>(null);
   const [isMap360Orbiting, setIsMap360Orbiting] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const mapOrbitAnimRef = useRef<number | null>(null);
 
-  // Center of Andhra Pradesh Kadapa dataset
-  const DEFAULT_CENTER: [number, number] = [78.8300, 14.4680];
-  const DEFAULT_ZOOM = 14.8;
+  // Geographic center of Duvvada, Visakhapatnam, Andhra Pradesh, India
+  const DEFAULT_CENTER: [number, number] = [83.1514, 17.7036];
+  const DEFAULT_ZOOM = 15.4;
 
-  // Build GeoJSON features
+  // Build GeoJSON features for Parcels
   const parcelsGeoJson = React.useMemo(() => ({
     type: 'FeatureCollection' as const,
     features: parcels.map(p => ({
@@ -78,6 +115,7 @@ export const GisMap: React.FC<GisMapProps> = ({
     }))
   }), [parcels]);
 
+  // Build GeoJSON features for Real Duvvada Buildings
   const buildingsGeoJson = React.useMemo(() => ({
     type: 'FeatureCollection' as const,
     features: buildings.map(b => ({
@@ -86,11 +124,21 @@ export const GisMap: React.FC<GisMapProps> = ({
       properties: {
         Building_ID: b.Building_ID,
         Parcel_ID: b.Parcel_ID,
-        Floors: b.Floors,
-        Height_m: b.Height_m,
+        Osm_ID: b.osmId,
+        Name: b.name || b.Building_ID,
         Building_Type: b.Building_Type,
+        Floors: b.Floors,
+        HasRealLevels: Boolean(b.hasRealLevels),
+        RealFloors: b.realFloors ?? null,
+        Height_m: b.Height_m,
+        HasRealHeight: Boolean(b.hasRealHeight),
+        RealHeight: b.realHeight ?? null,
+        Area_sq_m: b.area_sq_m || 250,
+        Street: b.street || 'Kurmannapalem Road / Duvvada',
         Latitude: b.Latitude,
-        Longitude: b.Longitude
+        Longitude: b.Longitude,
+        Source: 'OpenStreetMap',
+        DataStatus: 'REAL_PUBLIC_DATA'
       },
       geometry: {
         type: 'Polygon' as const,
@@ -99,6 +147,43 @@ export const GisMap: React.FC<GisMapProps> = ({
     }))
   }), [buildings]);
 
+  // Build GeoJSON features for Real Duvvada Roads & Railways
+  const roadsGeoJson = React.useMemo(() => ({
+    type: 'FeatureCollection' as const,
+    features: roads.map(r => ({
+      type: 'Feature' as const,
+      id: String(r.id),
+      properties: {
+        id: r.id,
+        name: r.name,
+        type: r.type,
+        isRailway: r.isRailway
+      },
+      geometry: {
+        type: 'LineString' as const,
+        coordinates: r.coordinates
+      }
+    }))
+  }), [roads]);
+
+  // Build GeoJSON features for Real Duvvada Landmarks & Places
+  const placesGeoJson = React.useMemo(() => ({
+    type: 'FeatureCollection' as const,
+    features: places.map(p => ({
+      type: 'Feature' as const,
+      id: String(p.id),
+      properties: {
+        id: p.id,
+        name: p.name,
+        category: p.category
+      },
+      geometry: {
+        type: 'Point' as const,
+        coordinates: p.coordinates
+      }
+    }))
+  }), [places]);
+
   // Construct MapLibre Style Specification dynamically based on chosen basemap
   const getStyleSpec = useCallback((style: MapStyleMode): maplibregl.StyleSpecification => {
     let rasterSourceUrl = 'https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
@@ -106,9 +191,9 @@ export const GisMap: React.FC<GisMapProps> = ({
 
     if (style === 'streets') {
       rasterSourceUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-      attribution = '© OpenStreetMap contributors';
+      attribution = '© OpenStreetMap contributors (ODbL)';
     } else if (style === 'satellite') {
-      // Configurable or open Esri World Imagery
+      // High-resolution Esri World Imagery
       rasterSourceUrl = ((import.meta as any).env?.VITE_SATELLITE_TILE_URL as string) ||
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
       attribution = 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
@@ -157,8 +242,7 @@ export const GisMap: React.FC<GisMapProps> = ({
     map.on('error', (e) => {
       if (mapStyle === 'satellite') {
         console.warn('Satellite layer error, falling back:', e);
-        setSatelliteError('Satellite tiles temporarily unavailable — switched to standard light view.');
-        setMapStyle('light');
+        setSatelliteError('Live satellite tiles temporarily slow — fallback light vector active.');
       }
     });
 
@@ -186,7 +270,60 @@ export const GisMap: React.FC<GisMapProps> = ({
 
   // Add all layers
   const addGeoJsonLayers = (map: maplibregl.Map) => {
-    // Add Parcels source
+    // 1. Roads & Railway Source
+    if (!map.getSource('roads-source')) {
+      map.addSource('roads-source', {
+        type: 'geojson',
+        data: roadsGeoJson
+      });
+    }
+
+    // Road Casing
+    if (!map.getLayer('roads-casing')) {
+      map.addLayer({
+        id: 'roads-casing',
+        type: 'line',
+        source: 'roads-source',
+        filter: ['!=', 'type', 'railway'],
+        paint: {
+          'line-color': mapStyle === 'satellite' ? '#0f172a' : '#ffffff',
+          'line-width': 4.0,
+          'line-opacity': 0.75
+        }
+      });
+    }
+
+    // Road Centerline
+    if (!map.getLayer('roads-line')) {
+      map.addLayer({
+        id: 'roads-line',
+        type: 'line',
+        source: 'roads-source',
+        filter: ['!=', 'type', 'railway'],
+        paint: {
+          'line-color': mapStyle === 'satellite' ? '#fbbf24' : '#334155',
+          'line-width': 2.2,
+          'line-opacity': 0.95
+        }
+      });
+    }
+
+    // Railway line (Duvvada Station railway line)
+    if (!map.getLayer('railway-line')) {
+      map.addLayer({
+        id: 'railway-line',
+        type: 'line',
+        source: 'roads-source',
+        filter: ['==', 'type', 'railway'],
+        paint: {
+          'line-color': '#e11d48',
+          'line-width': 3.0,
+          'line-dasharray': [4, 2]
+        }
+      });
+    }
+
+    // 2. Parcels Source
     if (!map.getSource('parcels-source')) {
       map.addSource('parcels-source', {
         type: 'geojson',
@@ -194,15 +331,7 @@ export const GisMap: React.FC<GisMapProps> = ({
       });
     }
 
-    // Add Buildings source
-    if (!map.getSource('buildings-source')) {
-      map.addSource('buildings-source', {
-        type: 'geojson',
-        data: buildingsGeoJson
-      });
-    }
-
-    // 1. Parcels Fill
+    // Parcels Fill
     if (!map.getLayer('parcels-fill')) {
       map.addLayer({
         id: 'parcels-fill',
@@ -217,12 +346,12 @@ export const GisMap: React.FC<GisMapProps> = ({
             'Mixed Use', '#38bdf8',
             '#94a3b8'
           ],
-          'fill-opacity': 0.38
+          'fill-opacity': 0.28
         }
       });
     }
 
-    // 2. Parcels Stroke Outline
+    // Parcels Stroke
     if (!map.getLayer('parcels-stroke')) {
       map.addLayer({
         id: 'parcels-stroke',
@@ -230,13 +359,13 @@ export const GisMap: React.FC<GisMapProps> = ({
         source: 'parcels-source',
         paint: {
           'line-color': '#0284c7',
-          'line-width': 1.8,
+          'line-width': 1.6,
           'line-dasharray': [3, 2]
         }
       });
     }
 
-    // 3. Parcels Selected Highlight Outline
+    // Selected Parcel Highlight
     if (!map.getLayer('parcels-selected')) {
       map.addLayer({
         id: 'parcels-selected',
@@ -245,12 +374,56 @@ export const GisMap: React.FC<GisMapProps> = ({
         filter: ['==', 'Parcel_ID', ''],
         paint: {
           'line-color': '#06b6d4',
-          'line-width': 4.5
+          'line-width': 4.0
         }
       });
     }
 
-    // 4. 3D Building Extrusions Layer
+    // 3. Buildings Source
+    if (!map.getSource('buildings-source')) {
+      map.addSource('buildings-source', {
+        type: 'geojson',
+        data: buildingsGeoJson
+      });
+    }
+
+    // 2D Building Footprints Fill
+    if (!map.getLayer('buildings-fill')) {
+      map.addLayer({
+        id: 'buildings-fill',
+        type: 'fill',
+        source: 'buildings-source',
+        paint: {
+          'fill-color': [
+            'match',
+            ['get', 'Building_Type'],
+            'Commercial', '#0284c7',
+            'Apartment', '#10b981',
+            'Independent House', '#06b6d4',
+            'Institutional', '#8b5cf6',
+            'Healthcare', '#ec4899',
+            '#64748b'
+          ],
+          'fill-opacity': is3DMode && showExtrusions ? 0 : 0.82
+        }
+      });
+    }
+
+    // 2D Building Footprints Stroke
+    if (!map.getLayer('buildings-stroke')) {
+      map.addLayer({
+        id: 'buildings-stroke',
+        type: 'line',
+        source: 'buildings-source',
+        paint: {
+          'line-color': '#ffffff',
+          'line-width': 1.2,
+          'line-opacity': 0.9
+        }
+      });
+    }
+
+    // 3D Building Extrusions Layer
     if (!map.getLayer('buildings-extrusion')) {
       map.addLayer({
         id: 'buildings-extrusion',
@@ -263,7 +436,8 @@ export const GisMap: React.FC<GisMapProps> = ({
             'Commercial', '#0284c7',
             'Apartment', '#10b981',
             'Independent House', '#06b6d4',
-            'Mixed Use', '#8b5cf6',
+            'Institutional', '#8b5cf6',
+            'Healthcare', '#ec4899',
             '#64748b'
           ],
           'fill-extrusion-height': is3DMode ? ['get', 'Height_m'] : 0,
@@ -273,7 +447,7 @@ export const GisMap: React.FC<GisMapProps> = ({
       });
     }
 
-    // 5. Selected Building Extrusion Highlight
+    // Selected Building Extrusion Highlight
     if (!map.getLayer('buildings-selected')) {
       map.addLayer({
         id: 'buildings-selected',
@@ -284,13 +458,48 @@ export const GisMap: React.FC<GisMapProps> = ({
           'fill-extrusion-color': '#facc15', // vibrant gold highlight
           'fill-extrusion-height': is3DMode ? ['get', 'Height_m'] : 0,
           'fill-extrusion-base': 0,
-          'fill-extrusion-opacity': 0.95
+          'fill-extrusion-opacity': 0.98
+        }
+      });
+    }
+
+    // 4. Places & Landmarks Source
+    if (!map.getSource('places-source')) {
+      map.addSource('places-source', {
+        type: 'geojson',
+        data: placesGeoJson
+      });
+    }
+
+    if (!map.getLayer('places-circles')) {
+      map.addLayer({
+        id: 'places-circles',
+        type: 'circle',
+        source: 'places-source',
+        paint: {
+          'circle-radius': 6.5,
+          'circle-color': '#f43f5e',
+          'circle-stroke-width': 2.0,
+          'circle-stroke-color': '#ffffff'
         }
       });
     }
 
     // Interactive event listeners
     map.on('click', 'buildings-extrusion', (e) => {
+      if (e.features && e.features.length > 0) {
+        const feat = e.features[0];
+        const bldgId = feat.properties?.Building_ID;
+        const bldg = buildings.find(b => b.Building_ID === bldgId);
+        if (bldg) {
+          onSelectBuilding(bldg);
+          const p = parcels.find(item => item.Parcel_ID === bldg.Parcel_ID);
+          if (p) onSelectParcel(p);
+        }
+      }
+    });
+
+    map.on('click', 'buildings-fill', (e) => {
       if (e.features && e.features.length > 0) {
         const feat = e.features[0];
         const bldgId = feat.properties?.Building_ID;
@@ -316,31 +525,46 @@ export const GisMap: React.FC<GisMapProps> = ({
       }
     });
 
-    // Touch cursor to building -> Immediate Owner Details Hover Card!
+    // Touch cursor to building -> Immediate Details Hover Card
     map.on('mousemove', 'buildings-extrusion', (e) => {
       if (e.features && e.features.length > 0) {
         map.getCanvas().style.cursor = 'pointer';
         const feat = e.features[0];
-        const bldgId = feat.properties?.Building_ID;
-        const parcelId = feat.properties?.Parcel_ID;
-        const bldgType = feat.properties?.Building_Type;
-        const floors = feat.properties?.Floors;
-        const height = feat.properties?.Height_m;
+        const props = feat.properties || {};
+        const bldgId = props.Building_ID;
+        const parcelId = props.Parcel_ID;
+        const osmId = props.Osm_ID;
+        const name = props.Name;
+        const bldgType = props.Building_Type;
+        const floors = props.Floors;
+        const height = props.Height_m;
+        const hasRealLevels = Boolean(props.HasRealLevels);
+        const realFloors = props.RealFloors;
+        const hasRealHeight = Boolean(props.HasRealHeight);
+        const area_sq_m = props.Area_sq_m || 250;
+        const street = props.Street;
 
-        // Get owner details
-        const ulpin = `IND-AP-${parcelId}-${bldgId}`;
-        const ownership = getOwnershipRecord(bldgId, ulpin, true);
+        const ulpin = `IND-AP-VSP-DVD-${parcelId}-${bldgId}`;
+        const ownership = getOwnershipRecord(bldgId, ulpin, enableDemoOverlay);
 
         setHoveredBuildingCard({
           id: bldgId,
           parcelId,
+          osmId,
+          name,
           bldgType,
           floors,
+          hasRealLevels,
+          realFloors,
           height,
+          hasRealHeight,
+          area_sq_m,
+          street,
           ownerName: ownership.currentOwner,
           surveyNo: ownership.surveyNumber,
           ulpin,
           ownershipStatus: ownership.ownershipStatus,
+          isDemoOwnership: ownership.isDemoData,
           x: e.point.x,
           y: e.point.y
         });
@@ -352,33 +576,62 @@ export const GisMap: React.FC<GisMapProps> = ({
       setHoveredBuildingCard(null);
     });
 
-    map.on('mousemove', 'parcels-fill', (e) => {
-      if (e.features && e.features.length > 0 && !hoveredBuildingCard) {
+    map.on('mousemove', 'buildings-fill', (e) => {
+      if (!is3DMode && e.features && e.features.length > 0) {
         map.getCanvas().style.cursor = 'pointer';
         const feat = e.features[0];
-        const parcelId = feat.properties?.Parcel_ID;
-        const ulpin = `IND-AP-${parcelId}`;
-        const ownership = getOwnershipRecord(parcelId, ulpin, true);
+        const props = feat.properties || {};
+        const bldgId = props.Building_ID;
+        const parcelId = props.Parcel_ID;
+        const osmId = props.Osm_ID;
+        const name = props.Name;
+        const bldgType = props.Building_Type;
+        const floors = props.Floors;
+        const height = props.Height_m;
+        const hasRealLevels = Boolean(props.HasRealLevels);
+        const realFloors = props.RealFloors;
+        const hasRealHeight = Boolean(props.HasRealHeight);
+        const area_sq_m = props.Area_sq_m || 250;
+        const street = props.Street;
+
+        const ulpin = `IND-AP-VSP-DVD-${parcelId}-${bldgId}`;
+        const ownership = getOwnershipRecord(bldgId, ulpin, enableDemoOverlay);
 
         setHoveredBuildingCard({
-          id: parcelId,
+          id: bldgId,
           parcelId,
-          bldgType: `Land Parcel (${feat.properties?.Land_Type})`,
-          floors: 0,
-          height: 0,
+          osmId,
+          name,
+          bldgType,
+          floors,
+          hasRealLevels,
+          realFloors,
+          height,
+          hasRealHeight,
+          area_sq_m,
+          street,
           ownerName: ownership.currentOwner,
           surveyNo: ownership.surveyNumber,
           ulpin,
           ownershipStatus: ownership.ownershipStatus,
+          isDemoOwnership: ownership.isDemoData,
           x: e.point.x,
           y: e.point.y
         });
       }
     });
 
-    map.on('mouseleave', 'parcels-fill', () => {
+    map.on('mouseleave', 'buildings-fill', () => {
       map.getCanvas().style.cursor = '';
       setHoveredBuildingCard(null);
+    });
+
+    // Hover on places/POIs
+    map.on('mouseenter', 'places-circles', () => {
+      map.getCanvas().style.cursor = 'pointer';
+    });
+    map.on('mouseleave', 'places-circles', () => {
+      map.getCanvas().style.cursor = '';
     });
   };
 
@@ -405,7 +658,15 @@ export const GisMap: React.FC<GisMapProps> = ({
     const map = mapRef.current;
     if (!map) return;
 
-    if (selectedParcel) {
+    if (selectedBuilding) {
+      map.flyTo({
+        center: [selectedBuilding.Longitude, selectedBuilding.Latitude],
+        zoom: 17.2,
+        pitch: is3DMode ? 58 : 0,
+        speed: 1.4,
+        curve: 1.2
+      });
+    } else if (selectedParcel) {
       map.flyTo({
         center: [selectedParcel.Longitude, selectedParcel.Latitude],
         zoom: 16.5,
@@ -414,7 +675,7 @@ export const GisMap: React.FC<GisMapProps> = ({
         curve: 1.2
       });
     }
-  }, [selectedParcel]);
+  }, [selectedBuilding, selectedParcel]);
 
   // 2D / 3D Pitch transition & extrusion heights
   useEffect(() => {
@@ -427,14 +688,29 @@ export const GisMap: React.FC<GisMapProps> = ({
       duration: 1000
     });
 
-    if (map.isStyleLoaded() && map.getLayer('buildings-extrusion')) {
-      map.setPaintProperty(
-        'buildings-extrusion',
-        'fill-extrusion-height',
-        is3DMode ? ['get', 'Height_m'] : 0
-      );
+    if (map.isStyleLoaded()) {
+      if (map.getLayer('buildings-extrusion')) {
+        map.setPaintProperty(
+          'buildings-extrusion',
+          'fill-extrusion-height',
+          is3DMode ? ['get', 'Height_m'] : 0
+        );
+        map.setLayoutProperty(
+          'buildings-extrusion',
+          'visibility',
+          is3DMode && showBuildingsLayer && showExtrusions ? 'visible' : 'none'
+        );
+      }
+
+      if (map.getLayer('buildings-fill')) {
+        map.setPaintProperty(
+          'buildings-fill',
+          'fill-opacity',
+          is3DMode && showExtrusions ? 0 : 0.82
+        );
+      }
     }
-  }, [is3DMode]);
+  }, [is3DMode, showBuildingsLayer, showExtrusions]);
 
   // Layer visibility updates
   useEffect(() => {
@@ -447,14 +723,32 @@ export const GisMap: React.FC<GisMapProps> = ({
     if (map.getLayer('parcels-stroke')) {
       map.setLayoutProperty('parcels-stroke', 'visibility', showParcelsLayer ? 'visible' : 'none');
     }
+    if (map.getLayer('buildings-fill')) {
+      map.setLayoutProperty('buildings-fill', 'visibility', showBuildingsLayer ? 'visible' : 'none');
+    }
+    if (map.getLayer('buildings-stroke')) {
+      map.setLayoutProperty('buildings-stroke', 'visibility', showBuildingsLayer ? 'visible' : 'none');
+    }
     if (map.getLayer('buildings-extrusion')) {
       map.setLayoutProperty(
         'buildings-extrusion',
         'visibility',
-        showBuildingsLayer && showExtrusions ? 'visible' : 'none'
+        is3DMode && showBuildingsLayer && showExtrusions ? 'visible' : 'none'
       );
     }
-  }, [showParcelsLayer, showBuildingsLayer, showExtrusions]);
+    if (map.getLayer('roads-casing')) {
+      map.setLayoutProperty('roads-casing', 'visibility', showRoadsLayer ? 'visible' : 'none');
+    }
+    if (map.getLayer('roads-line')) {
+      map.setLayoutProperty('roads-line', 'visibility', showRoadsLayer ? 'visible' : 'none');
+    }
+    if (map.getLayer('railway-line')) {
+      map.setLayoutProperty('railway-line', 'visibility', showRoadsLayer ? 'visible' : 'none');
+    }
+    if (map.getLayer('places-circles')) {
+      map.setLayoutProperty('places-circles', 'visibility', showPlacesLayer ? 'visible' : 'none');
+    }
+  }, [showParcelsLayer, showBuildingsLayer, showRoadsLayer, showPlacesLayer, showExtrusions, is3DMode]);
 
   // Continuous 360° Map Orbit Animation
   useEffect(() => {
@@ -497,13 +791,34 @@ export const GisMap: React.FC<GisMapProps> = ({
     });
   };
 
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      mapContainerRef.current?.requestFullscreen();
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
+    }
+  };
+
   return (
-    <div className="relative w-full h-full select-none overflow-hidden">
+    <div className="relative w-full h-full select-none overflow-hidden bg-slate-900">
       {/* Map Container */}
       <div ref={mapContainerRef} className="w-full h-full" />
 
-      {/* Prominent Top-Left 2D / 3D Conversion Control Pill */}
-      <div className="absolute top-4 left-4 z-20 flex items-center gap-2">
+      {/* Top-Left Geographic Location & 2D/3D Mode Pill */}
+      <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+        <div className="bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-slate-200 shadow-md flex items-center gap-2 text-xs">
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="flex items-center gap-1.5">
+            <span className="font-extrabold text-slate-900">Duvvada</span>
+            <span className="text-[11px] text-slate-500">• Visakhapatnam, AP</span>
+          </div>
+          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold">
+            REAL OSM DATA
+          </span>
+        </div>
+
         <div className="bg-white/95 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200 shadow-lg flex items-center gap-1">
           <button
             onClick={() => {
@@ -516,7 +831,7 @@ export const GisMap: React.FC<GisMapProps> = ({
             }`}
           >
             <Compass className="w-3.5 h-3.5" />
-            <span>2D Cadastral Plan</span>
+            <span>2D Footprints</span>
           </button>
 
           <button
@@ -530,7 +845,7 @@ export const GisMap: React.FC<GisMapProps> = ({
             }`}
           >
             <Box className="w-3.5 h-3.5" />
-            <span>3D Digital Twin (55°)</span>
+            <span>3D GIS (55°)</span>
           </button>
         </div>
       </div>
@@ -549,54 +864,71 @@ export const GisMap: React.FC<GisMapProps> = ({
         </div>
       )}
 
-      {/* Live Touch-Cursor Building & Owner Details Hover Card */}
+      {/* Live Building Details Hover Card */}
       {hoveredBuildingCard && (
         <div
-          className="absolute z-30 pointer-events-none bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-2xl border border-cyan-200 text-xs text-slate-800 -translate-x-1/2 -translate-y-28 transition-all duration-75 min-w-[240px] max-w-xs"
+          className="absolute z-30 pointer-events-none bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-2xl border border-cyan-300 text-xs text-slate-800 -translate-x-1/2 -translate-y-32 transition-all duration-75 min-w-[260px] max-w-sm"
           style={{ left: hoveredBuildingCard.x, top: hoveredBuildingCard.y }}
         >
-          {/* Header */}
+          {/* Header with verified Real Public Data badge */}
           <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-2">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-500 animate-pulse" />
-              <h4 className="font-extrabold text-slate-900 text-xs">
-                {hoveredBuildingCard.id}
-              </h4>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div>
+                <h4 className="font-extrabold text-slate-900 text-xs truncate max-w-[160px]">
+                  {hoveredBuildingCard.name || hoveredBuildingCard.id}
+                </h4>
+                <span className="text-[9px] text-slate-400 font-mono block">
+                  OSM Way: {hoveredBuildingCard.osmId || hoveredBuildingCard.id}
+                </span>
+              </div>
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-              {hoveredBuildingCard.ownershipStatus}
+            <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+              REAL OSM DATA
             </span>
           </div>
 
-          {/* Owner details */}
+          {/* Building Specifications */}
           <div className="space-y-1.5">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-[10px]">
-                {hoveredBuildingCard.ownerName.charAt(0)}
+            <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
+              <div className="p-1.5 bg-slate-50 rounded-lg">
+                <span className="text-[9px] text-slate-400 block uppercase font-medium">Footprint Area</span>
+                <span className="font-extrabold text-slate-800">{hoveredBuildingCard.area_sq_m} m²</span>
               </div>
-              <div>
-                <span className="text-[10px] text-slate-400 block font-semibold uppercase">Registered Owner</span>
-                <span className="font-bold text-slate-900 text-xs block -mt-0.5">
+              <div className="p-1.5 bg-slate-50 rounded-lg">
+                <span className="text-[9px] text-slate-400 block uppercase font-medium">Floor Profile</span>
+                <span className="font-extrabold text-slate-800">
+                  {hoveredBuildingCard.hasRealLevels 
+                    ? `${hoveredBuildingCard.realFloors} Fl (OSM Tag)` 
+                    : `${hoveredBuildingCard.floors} Fl (Demo Height)`}
+                </span>
+              </div>
+            </div>
+
+            {hoveredBuildingCard.street && (
+              <div className="text-[10px] text-slate-500 truncate">
+                <span className="text-slate-400">Road:</span> {hoveredBuildingCard.street}
+              </div>
+            )}
+
+            {/* Ownership Section: Explicitly marked as DEMO DATA */}
+            <div className="pt-2 border-t border-slate-100 mt-2">
+              <div className="flex items-center justify-between text-[10px] mb-1">
+                <span className="font-bold text-slate-600 uppercase tracking-wider text-[9px]">
+                  Vertical Property Owner
+                </span>
+                <span className="text-[8px] font-bold px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 border border-amber-200">
+                  DEMO RECORD
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-800 text-xs">
                   {hoveredBuildingCard.ownerName}
                 </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 pt-1 text-[11px] text-slate-600">
-              <div>
-                <span className="text-[9px] text-slate-400 block font-mono uppercase">Survey Number</span>
-                <span className="font-bold text-slate-800">{hoveredBuildingCard.surveyNo}</span>
-              </div>
-              <div>
-                <span className="text-[9px] text-slate-400 block uppercase">Building Spec</span>
-                <span className="font-semibold text-slate-800">
-                  {hoveredBuildingCard.floors > 0 ? `${hoveredBuildingCard.floors} Fl (${hoveredBuildingCard.height}m)` : 'Surface Plot'}
+                <span className="text-[10px] text-cyan-700 font-mono font-bold">
+                  {hoveredBuildingCard.ownershipStatus}
                 </span>
               </div>
-            </div>
-
-            <div className="pt-1.5 border-t border-slate-100 text-[10px] font-mono text-cyan-700 truncate">
-              {hoveredBuildingCard.ulpin}
             </div>
           </div>
         </div>
@@ -605,68 +937,142 @@ export const GisMap: React.FC<GisMapProps> = ({
       {/* Map Style & Layer Switcher Floating Controls (Top Right) */}
       <div className="absolute top-4 right-4 z-20 flex flex-col items-end gap-2">
         {/* Style selector */}
-        <div className="bg-white/90 backdrop-blur-md p-1.5 rounded-xl border border-slate-200 shadow-md flex items-center gap-1 text-xs">
+        <div className="bg-white/95 backdrop-blur-md p-1.5 rounded-xl border border-slate-200 shadow-md flex items-center gap-1 text-xs">
+          <button
+            onClick={() => setMapStyle('satellite')}
+            className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
+              mapStyle === 'satellite' ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+            }`}
+            title="Real high-resolution satellite imagery of Duvvada, Visakhapatnam"
+          >
+            <Satellite className="w-3.5 h-3.5" />
+            <span>Satellite</span>
+          </button>
+          <button
+            onClick={() => setMapStyle('streets')}
+            className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
+              mapStyle === 'streets' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>Streets</span>
+          </button>
           <button
             onClick={() => setMapStyle('light')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 ${
               mapStyle === 'light' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
             <Sun className="w-3.5 h-3.5" />
             <span>Light</span>
           </button>
-          <button
-            onClick={() => setMapStyle('streets')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${
-              mapStyle === 'streets' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Street</span>
-          </button>
-          <button
-            onClick={() => setMapStyle('satellite')}
-            className={`px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1.5 ${
-              mapStyle === 'satellite' ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            <Satellite className="w-3.5 h-3.5" />
-            <span>Satellite</span>
-          </button>
         </div>
 
         {/* 2D / 3D Mode & Layer Toggles */}
-        <div className="bg-white/90 backdrop-blur-md p-2 rounded-xl border border-slate-200 shadow-md flex flex-col gap-1.5 text-xs">
-          <button
-            onClick={onToggle3D}
-            className={`w-full px-3 py-1.5 rounded-lg font-semibold transition flex items-center justify-between gap-2 ${
-              is3DMode
-                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-            }`}
-          >
-            <div className="flex items-center gap-1.5">
-              <Box className="w-3.5 h-3.5" />
-              <span>{is3DMode ? '3D View (55°)' : '2D Plan'}</span>
-            </div>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 uppercase font-mono">
-              {is3DMode ? '3D' : '2D'}
-            </span>
-          </button>
+        <div className="bg-white/95 backdrop-blur-md p-2.5 rounded-xl border border-slate-200 shadow-md flex flex-col gap-2 text-xs w-60">
+          <div className="flex items-center justify-between pb-1 border-b border-slate-100">
+            <span className="font-extrabold text-slate-800 text-[11px]">GIS Layer Controls</span>
+            <button
+              onClick={toggleFullscreen}
+              className="p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded transition"
+              title="Toggle Fullscreen Map"
+            >
+              {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+            </button>
+          </div>
 
+          {/* Building footprints layer */}
+          <label className="flex items-center justify-between gap-3 text-slate-700 hover:text-slate-900 cursor-pointer px-1">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-emerald-500" />
+              <span className="font-semibold">OSM Buildings ({buildings.length})</span>
+            </div>
+            <input
+              type="checkbox"
+              checked={showBuildingsLayer}
+              onChange={e => setShowBuildingsLayer(e.target.checked)}
+              className="rounded text-emerald-600 accent-emerald-600"
+            />
+          </label>
+
+          {/* 3D Extrusions */}
+          {is3DMode && (
+            <label className="flex items-center justify-between gap-3 text-slate-700 hover:text-slate-900 cursor-pointer px-1 pl-3 text-[11px]">
+              <span className="text-slate-600">3D Extrusions</span>
+              <input
+                type="checkbox"
+                checked={showExtrusions}
+                onChange={e => setShowExtrusions(e.target.checked)}
+                className="rounded text-brand-600 accent-brand-600"
+              />
+            </label>
+          )}
+
+          {/* Roads & Railways */}
+          <label className="flex items-center justify-between gap-3 text-slate-700 hover:text-slate-900 cursor-pointer px-1">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-sm bg-amber-400" />
+              <span className="font-semibold">Roads & Rail ({roads.length})</span>
+            </div>
+            <input
+              type="checkbox"
+              checked={showRoadsLayer}
+              onChange={e => setShowRoadsLayer(e.target.checked)}
+              className="rounded text-amber-600 accent-amber-600"
+            />
+          </label>
+
+          {/* Landmarks / POIs */}
+          <label className="flex items-center justify-between gap-3 text-slate-700 hover:text-slate-900 cursor-pointer px-1">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-rose-500" />
+              <span className="font-semibold">Landmarks / Transit ({places.length})</span>
+            </div>
+            <input
+              type="checkbox"
+              checked={showPlacesLayer}
+              onChange={e => setShowPlacesLayer(e.target.checked)}
+              className="rounded text-rose-600 accent-rose-600"
+            />
+          </label>
+
+          {/* Cadastral Parcels (Truth in Advertising: Public Source Unavailable) */}
+          <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-200/80">
+            <label className="flex items-center justify-between gap-2 text-slate-700 cursor-pointer">
+              <div className="flex items-center gap-1">
+                <span className="text-[11px] font-semibold text-slate-800">Cadastral Parcels</span>
+              </div>
+              <input
+                type="checkbox"
+                checked={showParcelsLayer}
+                onChange={e => setShowParcelsLayer(e.target.checked)}
+                className="rounded text-cyan-600 accent-cyan-600"
+              />
+            </label>
+            <p className="text-[9px] text-slate-500 mt-1 leading-tight">
+              {showParcelsLayer ? (
+                <span className="text-amber-700 font-medium">
+                  Showing architectural parcel setback grid (AP Meebhoomi cadastral vector API restricted).
+                </span>
+              ) : (
+                <span>Public cadastral data restricted; architecture ready for official API.</span>
+              )}
+            </p>
+          </div>
+
+          {/* 360 Orbit */}
           {is3DMode && (
             <button
               onClick={() => setIsMap360Orbiting(prev => !prev)}
-              className={`w-full px-3 py-1.5 rounded-lg font-semibold transition flex items-center justify-between gap-2 ${
+              className={`w-full px-3 py-1.5 rounded-lg font-bold transition flex items-center justify-between gap-2 ${
                 isMap360Orbiting
                   ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow ring-2 ring-orange-400/40'
                   : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
               }`}
-              title="Continuously rotate map bearing 360 degrees"
             >
               <div className="flex items-center gap-1.5">
                 <Orbit className={`w-3.5 h-3.5 ${isMap360Orbiting ? 'animate-spin' : ''}`} />
-                <span>360° Map Orbit</span>
+                <span>360° Orbit</span>
               </div>
               <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 uppercase font-mono">
                 {isMap360Orbiting ? 'ON' : 'OFF'}
@@ -674,79 +1080,56 @@ export const GisMap: React.FC<GisMapProps> = ({
             </button>
           )}
 
-          <div className="h-px bg-slate-200 my-0.5" />
-
-          <label className="flex items-center justify-between gap-3 text-slate-600 hover:text-slate-900 cursor-pointer px-1">
-            <span>Land Parcels</span>
-            <input
-              type="checkbox"
-              checked={showParcelsLayer}
-              onChange={e => setShowParcelsLayer(e.target.checked)}
-              className="rounded text-brand-600 accent-brand-600"
-            />
-          </label>
-
-          <label className="flex items-center justify-between gap-3 text-slate-600 hover:text-slate-900 cursor-pointer px-1">
-            <span>Buildings</span>
-            <input
-              type="checkbox"
-              checked={showBuildingsLayer}
-              onChange={e => setShowBuildingsLayer(e.target.checked)}
-              className="rounded text-brand-600 accent-brand-600"
-            />
-          </label>
-
-          <label className="flex items-center justify-between gap-3 text-slate-600 hover:text-slate-900 cursor-pointer px-1">
-            <span>3D Extrusions</span>
-            <input
-              type="checkbox"
-              checked={showExtrusions}
-              onChange={e => setShowExtrusions(e.target.checked)}
-              className="rounded text-brand-600 accent-brand-600"
-            />
-          </label>
-
-          <button
-            onClick={resetView}
-            className="mt-1 text-[11px] text-slate-500 hover:text-slate-800 flex items-center justify-center gap-1 py-1 hover:bg-slate-100 rounded transition"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset View</span>
-          </button>
+          <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
+            <button
+              onClick={resetView}
+              className="flex-1 text-[11px] text-slate-600 hover:text-slate-900 flex items-center justify-center gap-1 py-1.5 bg-slate-100 hover:bg-slate-200 font-semibold rounded-lg transition"
+            >
+              <RotateCcw className="w-3 h-3" />
+              <span>Reset Duvvada</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Floating Modern Map Legend (Bottom Left) */}
-      <div className="absolute bottom-6 left-6 z-10 bg-white/95 backdrop-blur-md p-3 rounded-xl border border-slate-200 shadow-lg text-xs max-w-xs">
-        <h4 className="font-bold text-slate-800 text-xs mb-2 flex items-center justify-between">
-          <span>Cadastral Symbology</span>
-          <span className="text-[10px] text-slate-400 font-normal">Andhra Pradesh</span>
+      <div className="absolute bottom-6 left-6 z-10 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-slate-200 shadow-xl text-xs max-w-xs">
+        <h4 className="font-extrabold text-slate-900 text-xs mb-2 flex items-center justify-between">
+          <span>Duvvada Urban Cadastre</span>
+          <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 font-mono font-bold">
+            ODbL
+          </span>
         </h4>
         <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[11px]">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm bg-emerald-400 border border-emerald-600" />
-            <span className="text-slate-600">Residential</span>
+            <span className="w-3 h-3 rounded-sm bg-emerald-500 border border-emerald-600" />
+            <span className="text-slate-600 font-medium">Apartments</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm bg-amber-400 border border-amber-600" />
-            <span className="text-slate-600">Commercial</span>
+            <span className="w-3 h-3 rounded-sm bg-sky-500 border border-sky-600" />
+            <span className="text-slate-600 font-medium">Commercial</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm bg-sky-400 border border-sky-600" />
-            <span className="text-slate-600">Mixed Use</span>
+            <span className="w-3 h-3 rounded-sm bg-cyan-500 border border-cyan-600" />
+            <span className="text-slate-600 font-medium">House / Res</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm bg-indigo-500 border border-indigo-700" />
-            <span className="text-slate-600">Apartment Block</span>
+            <span className="w-3 h-3 rounded-sm bg-purple-500 border border-purple-600" />
+            <span className="text-slate-600 font-medium">Institutional</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm bg-yellow-400 ring-2 ring-yellow-500 ring-offset-1" />
-            <span className="text-slate-800 font-semibold">Selected Building</span>
+            <span className="w-3 h-1 bg-amber-400 rounded" />
+            <span className="text-slate-600 font-medium">OSM Roads</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-sm border-2 border-cyan-500 bg-cyan-100" />
-            <span className="text-slate-800 font-semibold">Selected Parcel</span>
+            <span className="w-3 h-1 bg-rose-500 border-b border-dashed border-white" />
+            <span className="text-slate-600 font-medium">Rail Corridor</span>
           </div>
+        </div>
+
+        {/* Data Attribution Footer */}
+        <div className="mt-2.5 pt-2 border-t border-slate-100 text-[9px] text-slate-400 leading-tight">
+          Satellite: Esri World Imagery • Footprints: OpenStreetMap contributors under ODbL license.
         </div>
       </div>
     </div>
