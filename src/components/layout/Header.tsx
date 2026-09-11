@@ -97,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({
             <h1 className="font-extrabold text-slate-900 text-base tracking-tight flex items-center gap-1.5">
               <span>3D-ULPIN</span>
               <span className="text-xs px-2 py-0.5 rounded-full font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs">
-                SIH 2024
+                SIH 2026
               </span>
             </h1>
           </div>
