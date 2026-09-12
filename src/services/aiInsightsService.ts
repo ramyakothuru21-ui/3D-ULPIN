@@ -66,7 +66,7 @@ export function generateCadastralInsights(data: LoadedDataset): AiCadastralInsig
     category: 'ULPIN Integrity',
     title: duplicateCount === 0 ? 'Zero ULPIN Identifier Conflicts' : `${duplicateCount} Conflicts Detected`,
     description: duplicateCount === 0
-      ? `Full audit of 986 registered vertical property units verified 100% uniqueness in ULPIN syntax (IND-AP-LPxxx-Bxxx-Fxx-xxx). Spatial coordinates match parent land parcels with zero orphaned records.`
+      ? `Full audit of ${data.properties.length} registered vertical property units verified 100% uniqueness in 3D-ULPIN syntax (IND-AP-VSP-DVD-LPxxx-Bxxx-Fxx-xxx). Spatial coordinates match parent real buildings with zero orphaned records.`
       : `Warning: ${duplicateCount} duplicate ULPIN strings detected. Review land registry ingestion scripts.`,
     confidenceScore: 100
   });
@@ -80,7 +80,7 @@ export function generateCadastralInsights(data: LoadedDataset): AiCadastralInsig
     id: 'ins-4',
     category: 'Land Utilization',
     title: `Commercial vs Residential Ratio: ${commercialRatio}% Commercial`,
-    description: `Analysis across 100 land parcels indicates a healthy smart-city commercial integration with ${commercialUnits} commercial units (shops & offices) and ${residentialUnits} residential dwellings, enabling mixed-use live-work zoning.`,
+    description: `Analysis across ${data.stats.totalParcels} land parcels and ${data.stats.totalBuildings} real Duvvada buildings indicates a healthy smart-city commercial integration with ${commercialUnits} commercial units (shops & offices) and ${residentialUnits} residential dwellings, enabling mixed-use live-work zoning.`,
     confidenceScore: 98.2
   });
 

@@ -22,10 +22,13 @@ export const BuildingsView: React.FC<BuildingsViewProps> = ({
   const [selectedFloors, setSelectedFloors] = useState<string>('ALL');
 
   const filteredBuildings = React.useMemo(() => {
+    const q = search.toLowerCase();
     return buildings.filter(b => {
-      const matchesSearch = b.Building_ID.toLowerCase().includes(search.toLowerCase()) ||
-        b.Parcel_ID.toLowerCase().includes(search.toLowerCase()) ||
-        b.Building_Type.toLowerCase().includes(search.toLowerCase());
+      const matchesSearch = b.Building_ID.toLowerCase().includes(q) ||
+        b.Parcel_ID.toLowerCase().includes(q) ||
+        b.Building_Type.toLowerCase().includes(q) ||
+        (b.name && b.name.toLowerCase().includes(q)) ||
+        (b.street && b.street.toLowerCase().includes(q));
       const matchesType = selectedType === 'ALL' || b.Building_Type === selectedType;
       const matchesFloors = selectedFloors === 'ALL' || b.Floors.toString() === selectedFloors;
       return matchesSearch && matchesType && matchesFloors;

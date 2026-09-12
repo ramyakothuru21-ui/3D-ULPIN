@@ -134,7 +134,7 @@ export const Building3DViewer: React.FC<Building3DViewerProps> = ({
       Unit_No: selectedFloorNum * 100 + 1,
       Area_sq_m: 115,
       Property_Type: 'Residential',
-      Prototype_3D_ULPIN: `IND-AP-${parcel.Parcel_ID}-${building.Building_ID}-F0${selectedFloorNum}-101`
+      Prototype_3D_ULPIN: `IND-AP-VSP-DVD-${parcel.Parcel_ID}-${building.Building_ID}-F${String(selectedFloorNum).padStart(2, '0')}-101`
     };
   }, [selectedProperty, selectedFloorNum, properties, building, parcel]);
 

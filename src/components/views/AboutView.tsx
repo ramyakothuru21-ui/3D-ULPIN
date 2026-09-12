@@ -30,7 +30,7 @@ export const AboutView: React.FC = () => {
         <div className="relative z-10 max-w-3xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md text-cyan-300 text-xs font-semibold border border-white/15">
             <Award className="w-3.5 h-3.5" />
-            <span>Smart India Hackathon 2024 Solution</span>
+            <span>Smart India Hackathon 2026 Solution</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight leading-tight">
             3D-ULPIN: Intelligent 3D Land & Property Information System
